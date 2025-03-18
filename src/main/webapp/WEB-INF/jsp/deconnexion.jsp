@@ -13,6 +13,30 @@
     <title>Déconnexion | Gestion Clients</title>
 </head>
 <body>
+<jsp:include page="components/header.jsp"/>
+<main>
+    <article>
+        <header><h1>Déconnexion</h1></header>
+        <section class="container" id="content">
+            <span class="handlewidth">
+                Souhaitez-vous vous déconnecter de l'application ?
+            </span>
+        </section>
+        <form action="#" method="post">
+            <fieldset class="row modal-dialog-centered">
+                <div class="form-group col-md-6 d-flex justify-content-center">
+                    <input type="submit" class="btn btn-success float-end"
+                           name="answer" value="Oui">
+                </div>
+                <div class="form-group col-md-6 d-flex justify-content-center">
+                    <input type="submit" class="btn btn-danger float-end"
+                           name="answer" value="Non">
+                </div>
+            </fieldset>
+        </form>
+    </article>
+</main>
+<jsp:include page="components/footer.jsp"/>
 <jsp:include page="components/scripts.jsp"/>
 </body>
 </html>

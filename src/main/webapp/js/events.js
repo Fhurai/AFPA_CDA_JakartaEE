@@ -5,13 +5,12 @@
  * @requires utilities.js for validation, search, geolocation, and weather functions
  */
 document.addEventListener("DOMContentLoaded", function () {
-    genDOM();
 
     /**
      * @description Sets up form validation for client create and update pages
      * @requires securiteChiffreAffaires(), securiteNbEmployes() from utilities.js
      */
-    if (["Front/clients/create.html", "Front/clients/update.html"].includes(getCurrentPage())) {
+    if (["clients/add", "clients/update"].includes(getCurrentPage())) {
         document.querySelector("main form button").addEventListener("click", function (e) {
 
             let msg = "";
@@ -60,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
      * @requires DOM elements with IDs: resultT, resultP, resultV, resultN, resultH,
      *           modalMeteo, labelAdresseMeteo
      */
-    if (["Front/clients/view.html", "Front/prospects/view.html"].includes(getCurrentPage())) {
+    if (["clients/view", "prospects/view"].includes(getCurrentPage())) {
         searchGeolocalisation()
             .then(array => {
                 createLeafletMap(array);

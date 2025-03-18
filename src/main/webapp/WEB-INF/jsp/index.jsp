@@ -13,6 +13,18 @@
     <title>Index | Gestion Clients</title>
 </head>
 <body>
+<jsp:include page="components/header.jsp"/>
+<main>
+    <article>
+        <header><h1>Bienvenue</h1></header>
+        <section class="container" id="content">
+            <span class="handlewidth">Vous trouverez ici les outils pour
+                permettre de créer un client, un prospect et de les modifier en
+                fonction de l'avancée du client.</span>
+        </section>
+    </article>
+</main>
+<jsp:include page="components/footer.jsp"/>
 <jsp:include page="components/scripts.jsp"/>
 </body>
 </html>

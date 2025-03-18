@@ -13,6 +13,17 @@
     <title>Erreur | Gestion Clients</title>
 </head>
 <body>
+<jsp:include page="components/header.jsp"/>
+<main>
+    <article>
+        <header><h1>Erreur</h1></header>
+        <section class="container" id="content">
+            <span class="handlewidth">La page, que vous recherchez, n'est
+            pas disponible.</span>
+        </section>
+    </article>
+</main>
+<jsp:include page="components/footer.jsp"/>
 <jsp:include page="components/scripts.jsp"/>
 </body>
 </html>

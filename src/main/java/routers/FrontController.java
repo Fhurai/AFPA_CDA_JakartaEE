@@ -1,4 +1,4 @@
-package routeur;
+package routers;
 
 import controllers.ICommand;
 import controllers.IndexController;
@@ -44,6 +44,7 @@ public final class FrontController extends HttpServlet {
      */
     public void init() {
         // Partie générale
+        commands.put(null, new IndexController());
         commands.put("index", new IndexController());
         commands.put("contact", new ContactController());
         commands.put("connexion", new ConnexionController());
@@ -62,6 +63,7 @@ public final class FrontController extends HttpServlet {
         commands.put("prospects/delete", new DeleteProspectsController());
         commands.put("prospects/update", new UpdateProspectsController());
         commands.put("prospects/view", new ViewProspectsController());
+        logger.log(Level.INFO, "init");
     }
 
     /**
@@ -76,6 +78,7 @@ public final class FrontController extends HttpServlet {
         try {
             // cmd correspond au nom du paramètre passé avec l’url
             String cmd = request.getParameter("cmd");
+            logger.log(Level.INFO, "cmd: " + cmd);
 
             // on récupère l’objet de la classe du contrôleur voulu
             ICommand com = (ICommand) commands.get(cmd);
@@ -84,6 +87,7 @@ public final class FrontController extends HttpServlet {
             // le contrôleur appelé par l’URL
             urlSuite = com.execute(request, response);
         } catch (Exception e) {
+            logger.log(Level.SEVERE, "Erreur : "+e.getMessage());
             urlSuite = "error.jsp";
         } finally {
             try {
