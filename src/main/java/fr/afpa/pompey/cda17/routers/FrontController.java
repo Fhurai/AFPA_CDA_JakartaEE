@@ -1,20 +1,20 @@
-package routers;
+package fr.afpa.pompey.cda17.routers;
 
-import controllers.ICommand;
-import controllers.IndexController;
-import controllers.ContactController;
-import controllers.ConnexionController;
-import controllers.DeconnexionController;
-import controllers.clients.CreationClientsController;
-import controllers.clients.DeleteClientsController;
-import controllers.clients.ListeClientsController;
-import controllers.clients.UpdateClientsController;
-import controllers.clients.ViewClientsController;
-import controllers.prospects.CreationProspectsController;
-import controllers.prospects.DeleteProspectsController;
-import controllers.prospects.ListeProspectsController;
-import controllers.prospects.UpdateProspectsController;
-import controllers.prospects.ViewProspectsController;
+import fr.afpa.pompey.cda17.controllers.ICommand;
+import fr.afpa.pompey.cda17.controllers.IndexController;
+import fr.afpa.pompey.cda17.controllers.ContactController;
+import fr.afpa.pompey.cda17.controllers.ConnexionController;
+import fr.afpa.pompey.cda17.controllers.DeconnexionController;
+import fr.afpa.pompey.cda17.controllers.clients.CreationClientsController;
+import fr.afpa.pompey.cda17.controllers.clients.DeleteClientsController;
+import fr.afpa.pompey.cda17.controllers.clients.ListeClientsController;
+import fr.afpa.pompey.cda17.controllers.clients.UpdateClientsController;
+import fr.afpa.pompey.cda17.controllers.clients.ViewClientsController;
+import fr.afpa.pompey.cda17.controllers.prospects.CreationProspectsController;
+import fr.afpa.pompey.cda17.controllers.prospects.DeleteProspectsController;
+import fr.afpa.pompey.cda17.controllers.prospects.ListeProspectsController;
+import fr.afpa.pompey.cda17.controllers.prospects.UpdateProspectsController;
+import fr.afpa.pompey.cda17.controllers.prospects.ViewProspectsController;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -87,7 +87,7 @@ public final class FrontController extends HttpServlet {
             // le contrôleur appelé par l’URL
             urlSuite = com.execute(request, response);
         } catch (Exception e) {
-            logger.log(Level.SEVERE, "Erreur : "+e.getMessage());
+            logger.log(Level.SEVERE, "Erreur : " + e.getMessage());
             urlSuite = "error.jsp";
         } finally {
             try {

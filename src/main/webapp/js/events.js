@@ -10,27 +10,27 @@ document.addEventListener("DOMContentLoaded", function () {
      * @description Sets up form validation for client create and update pages
      * @requires securiteChiffreAffaires(), securiteNbEmployes() from utilities.js
      */
-    if (["clients/add", "clients/update"].includes(getCurrentPage())) {
-        document.querySelector("main form button").addEventListener("click", function (e) {
-
-            let msg = "";
-            e.preventDefault();
-
-            if (securiteChiffreAffaires()) {
-                msg += "Chiffre d'affaires doit être au dessus de 250€ !\n";
-            }
-
-            if (securiteNbEmployes()) {
-                msg += "La société doit compter au moins 1 employé !\n";
-            }
-
-            if (msg !== "") {
-                alert(msg);
-                console.error(msg);
-            }
-
-        });
-    }
+    // if (["clients/add", "clients/update"].includes(getCurrentPage())) {
+    //     document.querySelector("main form button").addEventListener("click", function (e) {
+    //
+    //         let msg = "";
+    //         e.preventDefault();
+    //
+    //         if (securiteChiffreAffaires()) {
+    //             msg += "Chiffre d'affaires doit être au dessus de 250€ !\n";
+    //         }
+    //
+    //         if (securiteNbEmployes()) {
+    //             msg += "La société doit compter au moins 1 employé !\n";
+    //         }
+    //
+    //         if (msg !== "") {
+    //             alert(msg);
+    //             console.error(msg);
+    //         }
+    //
+    //     });
+    // }
 
     /**
      * @description Sets up search functionality for hovertable elements
@@ -88,4 +88,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
     }
+
+    // if(["clients/add", "clients/update", "clients/delete",
+    //     "prospects/add", "prospects/update", "prospects/view"].includes(getCurrentPage())) {
+    //     const form = document.querySelector("form");
+    //     form.addEventListener("submit", function(e){
+    //         e.preventDefault();
+    //
+    //         if(form.querySelector("button").innerText === "Sauvegarder"){
+    //             console.warning(Object.
+    //                             fromEntries(Array.
+    //                                         from(form.
+    //                                             querySelectorAll("input, textarea"))
+    //                                             .map(el => [el.id, el.value])));
+    //
+    //         }else if(form.querySelector("button") === "Supprimer"){
+    //             if(confirm("Confirmez vous la suppression ?")){
+    //                 console.warning("Société supprimée!");
+    //             }
+    //         }
+    //     });
+    // }
 });

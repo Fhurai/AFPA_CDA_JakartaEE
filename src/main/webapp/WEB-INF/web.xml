@@ -3,6 +3,12 @@
          xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-prelude>/WEB-INF/jsp/components/taglibs.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
     <welcome-file-list>
         <welcome-file>front</welcome-file>
     </welcome-file-list>

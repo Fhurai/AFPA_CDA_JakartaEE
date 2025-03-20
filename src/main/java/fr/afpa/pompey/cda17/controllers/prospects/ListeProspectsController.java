@@ -1,6 +1,6 @@
-package controllers.prospects;
+package fr.afpa.pompey.cda17.controllers.prospects;
 
-import controllers.ICommand;
+import fr.afpa.pompey.cda17.controllers.ICommand;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 

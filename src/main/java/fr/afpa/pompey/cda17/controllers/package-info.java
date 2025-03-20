@@ -1,4 +1,4 @@
 /**
  * Package des controllers de page.
  */
-package controllers;
+package fr.afpa.pompey.cda17.controllers;

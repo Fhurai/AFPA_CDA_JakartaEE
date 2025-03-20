@@ -1,4 +1,4 @@
 /**
  * Package des controllers de page pour les clients.
  */
-package controllers.clients;
+package fr.afpa.pompey.cda17.controllers.clients;

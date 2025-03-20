@@ -1,4 +1,4 @@
-package controllers;
+package fr.afpa.pompey.cda17.controllers;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
