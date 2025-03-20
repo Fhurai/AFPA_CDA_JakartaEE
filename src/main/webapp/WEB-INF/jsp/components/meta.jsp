@@ -5,6 +5,7 @@
   Time: 09:27
   To change this template use File | Settings | File Templates.
 --%>
+<head>
 <!-- Essential meta tags -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,3 +22,6 @@
 <link rel="stylesheet" href="css/fonts.css">
 <!-- Minified application styles -->
 <link rel="stylesheet" href="css/app.min.css">
+
+<title>${titlePage} | Gestion ${titleGroup}</title>
+</head>

@@ -89,24 +89,26 @@ document.addEventListener("DOMContentLoaded", function () {
             });
     }
 
-    // if(["clients/add", "clients/update", "clients/delete",
-    //     "prospects/add", "prospects/update", "prospects/view"].includes(getCurrentPage())) {
-    //     const form = document.querySelector("form");
-    //     form.addEventListener("submit", function(e){
-    //         e.preventDefault();
-    //
-    //         if(form.querySelector("button").innerText === "Sauvegarder"){
-    //             console.warning(Object.
-    //                             fromEntries(Array.
-    //                                         from(form.
-    //                                             querySelectorAll("input, textarea"))
-    //                                             .map(el => [el.id, el.value])));
-    //
-    //         }else if(form.querySelector("button") === "Supprimer"){
-    //             if(confirm("Confirmez vous la suppression ?")){
-    //                 console.warning("Société supprimée!");
-    //             }
-    //         }
-    //     });
-    // }
+    if(["clients/add", "clients/update", "clients/delete",
+        "prospects/add", "prospects/update", "prospects/view"].includes(getCurrentPage())) {
+        const form = document.querySelector("form");
+        form.addEventListener("submit", function(e){
+            e.preventDefault();
+
+            if(form.querySelector("button").innerText === "Sauvegarder"){
+                console.warn(Object.
+                                fromEntries(Array.
+                                            from(form.
+                                                querySelectorAll("input, textarea"))
+                                                .map(el => [el.id, el.value])));
+                form.submit();
+
+            }else if(form.querySelector("button").innerText === "Supprimer"){
+                if(confirm("Confirmez vous la suppression ?")){
+                    console.warn("Société supprimée!");
+                    form.submit();
+                }
+            }
+        });
+    }
 });

@@ -74,73 +74,50 @@
                 </div>
             </div>
             <div class="hovertable-body">
+                <%-- If no clients --%>
+                <c:if test="${empty clients}">
+                    No clients found.
+                </c:if>
                 <!-- Client Rows (repeated structure) -->
-                <div class="hovertable-row">
-                    <div class="hovertable-cell smaller">1</div>
-                    <div class="hovertable-cell">Falcom</div>
-                    <div class="hovertable-cell longer">
-                        2 bis rue Ardant du Picq 57004 Metz
+                <c:forEach var="client" items="${clients}" varStatus="status">
+                    <div class="hovertable-row">
+                        <div class="hovertable-cell smaller">
+                            <c:out value="${client.identifiant}" />
+                        </div>
+                        <div class="hovertable-cell">
+                            <c:out value="${client.raisonSociale}" />
+                        </div>
+                        <div class="hovertable-cell longer">
+                            <c:out value="${client.adresse.numeroRue}
+                            ${client.adresse.nomRue}
+                            ${client.adresse.codePostal}
+                            ${client.adresse.ville}" />
+                        </div>
+                        <div class="hovertable-cell">
+                            <c:out value="${client.telephone}" />
+                        </div>
+                        <div class="hovertable-cell long">
+                            <c:out value="${client.mail}" />
+                        </div>
+                        <div class="hovertable-cell handlewidth">
+                            <c:out value="${client.chiffreAffaires}" />
+                        </div>
+                        <div class="hovertable-cell handlewidth">
+                            <c:out value="${client.nbEmployes}" />
+                        </div>
+                        <div class="hovertable-cell small">
+                            <a href="?cmd=clients/view" title="Consulter">
+                                <span class="material-symbols-outlined">visibility</span>
+                            </a>
+                            <a href="?cmd=clients/update" title="Mettre à jour">
+                                <span class="material-symbols-outlined warning">edit</span>
+                            </a>
+                            <a href="?cmd=clients/delete" title="Supprimer">
+                                <span class="material-symbols-outlined danger">delete</span>
+                            </a>
+                        </div>
                     </div>
-                    <div class="hovertable-cell">0387543400</div>
-                    <div class="hovertable-cell long">contact@falcom.com</div>
-                    <div class="hovertable-cell handlewidth">999999.99</div>
-                    <div class="hovertable-cell handlewidth">80</div>
-                    <div class="hovertable-cell small">
-                        <a href="?cmd=clients/view" title="Consulter">
-                            <span class="material-symbols-outlined">visibility</span>
-                        </a>
-                        <a href="?cmd=clients/update" title="Mettre à jour">
-                            <span class="material-symbols-outlined warning">edit</span>
-                        </a>
-                        <a href="?cmd=clients/delete" title="Supprimer">
-                            <span class="material-symbols-outlined danger">delete</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="hovertable-row">
-                    <div class="hovertable-cell smaller">2</div>
-                    <div class="hovertable-cell">Capcom</div>
-                    <div class="hovertable-cell longer">
-                        25 rue de la Taye 57130 Jussy
-                    </div>
-                    <div class="hovertable-cell">0387758575</div>
-                    <div class="hovertable-cell long">contact@capcom.com</div>
-                    <div class="hovertable-cell handlewidth">4813</div>
-                    <div class="hovertable-cell handlewidth">6</div>
-                    <div class="hovertable-cell small">
-                        <a href="?cmd=clients/view" title="Consulter">
-                            <span class="material-symbols-outlined">visibility</span>
-                        </a>
-                        <a href="?cmd=clients/update" title="Mettre à jour">
-                            <span class="material-symbols-outlined warning">edit</span>
-                        </a>
-                        <a href="?cmd=clients/delete" title="Supprimer">
-                            <span class="material-symbols-outlined danger">delete</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="hovertable-row">
-                    <div class="hovertable-cell smaller">3</div>
-                    <div class="hovertable-cell">Monolith Software</div>
-                    <div class="hovertable-cell longer">
-                        3 rue des Michottes 54000 Nancy
-                    </div>
-                    <div class="hovertable-cell">0383375640</div>
-                    <div class="hovertable-cell long">contact@monolith-soft.com</div>
-                    <div class="hovertable-cell handlewidth">50000</div>
-                    <div class="hovertable-cell handlewidth">1</div>
-                    <div class="hovertable-cell small">
-                        <a href="?cmd=clients/view" title="Consulter">
-                            <span class="material-symbols-outlined">visibility</span>
-                        </a>
-                        <a href="?cmd=clients/update" title="Mettre à jour">
-                            <span class="material-symbols-outlined warning">edit</span>
-                        </a>
-                        <a href="?cmd=clients/delete" title="Supprimer">
-                            <span class="material-symbols-outlined danger">delete</span>
-                        </a>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </article>

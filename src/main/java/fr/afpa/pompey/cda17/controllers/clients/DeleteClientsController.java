@@ -13,6 +13,12 @@ public final class DeleteClientsController implements ICommand {
     public @NotNull String execute(final HttpServletRequest request,
                                    final HttpServletResponse response)
             throws Exception {
-        return "clients/delete.jsp";
+
+        request.setAttribute("titlePage", "Suppression");
+        request.setAttribute("titleGroup", "Clients");
+
+//        request.setAttribute("client", Clients.getClient());
+
+        return "clients/view.jsp";
     }
 }

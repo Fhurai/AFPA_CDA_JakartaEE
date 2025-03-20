@@ -61,8 +61,8 @@ function searchValueHovertable(value, column) {
             searchFalse = [];
         }
 
-        if (!row.children[column].innerText.includes(value) && value !== "") {
-            searchFalse.push(column);
+        if (!row.children[column].innerText.toLowerCase().includes(value.toLowerCase()) && value !== "") {
+            !searchFalse.includes(column) ? searchFalse.push(column) : null;
         } else {
             let index = searchFalse.indexOf(column);
             if (index > -1) {
@@ -82,7 +82,6 @@ function searchValueHovertable(value, column) {
  */
 function hideRowIfMarked() {
     Array.from(document.querySelectorAll(".hovertable .hovertable-body .hovertable-row")).forEach((row) => {
-        console.log(row.children[0].innerHTML.trim() + " : " + row.getAttribute("searchFalse"));
         let searchFalse;
 
         if (row.getAttribute("searchFalse") !== null) {

@@ -68,10 +68,12 @@ public final class CreationClientsController implements ICommand {
             } else {
                 request.setAttribute("violations", violations);
                 logger.warning("Validation issues: " + violations);
-                return "clients/creation.jsp";
             }
         }
 
-        return "clients/creation.jsp";
+        request.setAttribute("titlePage", "Création");
+        request.setAttribute("titleGroup", "Clients");
+
+        return "clients/view.jsp";
     }
 }

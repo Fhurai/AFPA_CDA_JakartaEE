@@ -13,6 +13,12 @@ public final class UpdateClientsController implements ICommand {
     public @NotNull String execute(final HttpServletRequest request,
                                    final HttpServletResponse response)
             throws Exception {
-        return "clients/update.jsp";
+
+        request.setAttribute("titlePage", "Mise à jour");
+        request.setAttribute("titleGroup", "Clients");
+
+//        request.setAttribute("client", Clients.getClient());
+
+        return "clients/view.jsp";
     }
 }

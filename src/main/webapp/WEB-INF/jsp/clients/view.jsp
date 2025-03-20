@@ -1,3 +1,4 @@
+<%--@elvariable id="client" type="fr.afpa.pompey.cda17.models.Client"--%>
 <%--
   Created by IntelliJ IDEA.
   User: CDA-01
@@ -8,12 +9,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
-<head>
-    <jsp:include page="../components/meta.jsp"/>
-    <title>Consultation Clients | Gestion Clients</title>
-</head>
+<c:import url="../components/meta.jsp" />
 <body>
-<jsp:include page="../components/header.jsp"/>
+<c:import url="../components/header.jsp" />
 <main>
     <article>
         <header>
@@ -38,8 +36,11 @@
                             placeholder="Raison Sociale"
                             required
                             size="30"
-                            disabled
-                            value="Falcom"
+                            <c:if
+                                    test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.raisonSociale}"
                     >
                 </div>
                 <div class="form-group col-md-6">
@@ -51,8 +52,10 @@
                             pattern="^(?:\+33|0033|0)[1-9](?:[ .\-]?\d{2}){4}$"
                             placeholder="Téléphone"
                             size="12"
-                            disabled
-                            value="0387543400"
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.telephone}"
                     >
                 </div>
                 <div class="form-group col-md-6">
@@ -64,8 +67,10 @@
                             pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
                             placeholder="Adresse Mail"
                             size="30"
-                            disabled
-                            value="contact@falcom.com"
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.mail}"
                     >
                 </div>
                 <div class="form-group col-md-12">
@@ -75,19 +80,23 @@
                             id="commentairesTextarea"
                             placeholder="Commentaires sur le client"
                             rows="5"
-                            disabled
-                    >La drogue avec Trails</textarea>
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                    >${client.commentaires}</textarea>
                 </div>
                 <legend class="border-bottom mb-4 d-flex">
-                    Partie adresse -
-                    <div id="labelAdresseMeteo">Météo changeante</div>
-                    <div
-                            class="btn btn-primary"
-                            data-bs-target="#modal"
-                            data-bs-toggle="modal"
-                    >
-                        Voir détails
-                    </div>
+                    Partie adresse
+                    <c:if test="${titlePage == 'Consultation'}"> -
+                        <div id="labelAdresseMeteo">Météo changeante</div>
+                        <div
+                                class="btn btn-primary"
+                                data-bs-target="#modal"
+                                data-bs-toggle="modal"
+                        >
+                            Voir détails
+                        </div>
+                    </c:if>
                 </legend>
                 <div id="map"></div>
                 <div class="form-group col-md-6">
@@ -99,8 +108,10 @@
                             pattern="(?:\d{0,3} +(bis|ter|quat)|(?:^|\b))|(?:\b\d{0,3}[ab]*\b)"
                             placeholder="Numero Rue"
                             size="15"
-                            disabled
-                            value="2 bis"
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.adresse.numeroRue}"
                     >
                 </div>
                 <div class="form-group col-md-6">
@@ -112,8 +123,10 @@
                             pattern="\b([a-zA-Z0-9]+(?:[.\- ']*[a-zA-Z0-9]+)*)\b"
                             placeholder="Nom Rue"
                             size="30"
-                            disabled
-                            value="rue Ardant du Picq"
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.adresse.nomRue}"
                     >
                 </div>
                 <div class="form-group col-md-6">
@@ -125,8 +138,10 @@
                             pattern="\b\d{5}\b"
                             placeholder="Code Postal"
                             size="5"
-                            disabled
-                            value="57004"
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.adresse.codePostal}"
                     >
                 </div>
                 <div class="form-group col-md-6">
@@ -138,8 +153,10 @@
                             pattern="\b([a-zA-Z]+(?:[.\- ']*[a-zA-Z]+)*)\b"
                             placeholder="Ville"
                             size="30"
-                            disabled
-                            value="Metz"
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.adresse.ville}"
                     >
                 </div>
                 <legend class="border-bottom mb-4">Partie client</legend>
@@ -151,8 +168,10 @@
                             type="number"
                             placeholder="Chiffre Affaires"
                             size="15"
-                            disabled
-                            value="999999.99"
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.chiffreAffaires}"
                     >
                 </div>
                 <div class="form-group col-md-6">
@@ -163,13 +182,26 @@
                             type="number"
                             placeholder="Nb Employes"
                             size="5"
-                            disabled
-                            value="80"
+                            <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
+                                disabled
+                            </c:if>
+                            value="${client.nbEmployes}"
                     >
                 </div>
                 <hr class="mt-4">
+
+                <c:if test="${titlePage != 'Consultation'}">
+                <div class="form-group col-md-12">
+                    <button
+                        class="btn btn-primary float-end">
+                        <c:out value="${(titlePage == \"Suppression\" ?
+                        \"Supprimer\" : \"Sauvegarder\")}"
+                    /></button>
+                </div>
+                </c:if>
             </fieldset>
         </form>
+        <c:if test="${titlePage == 'Consultation'}">
         <div
                 aria-hidden="true"
                 class="modal fade"
@@ -192,23 +224,23 @@
                     <div class="modal-body">
                         <div>
                             <h5>Température</h5>
-                            <div id="resultT">9°C - Froid</div>
+                            <div id="resultT"></div>
                         </div>
                         <div>
                             <h5>Pluie</h5>
-                            <div id="resultP">0mm - Aucune</div>
+                            <div id="resultP"></div>
                         </div>
                         <div>
                             <h5>Vent</h5>
-                            <div id="resultV">21km/h - Modéré</div>
+                            <div id="resultV"></div>
                         </div>
                         <div>
                             <h5>Nébulosité</h5>
-                            <div id="resultN">0% - Dégagé</div>
+                            <div id="resultN"></div>
                         </div>
                         <div>
                             <h5>Humidité</h5>
-                            <div id="resultH">49% - Sec</div>
+                            <div id="resultH"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -223,9 +255,10 @@
                 </div>
             </div>
         </div>
+        </c:if>
     </article>
 </main>
-<jsp:include page="../components/footer.jsp"/>
-<jsp:include page="../components/scripts.jsp"/>
+<c:import url="../components/footer.jsp" />
+<c:import url="../components/scripts.jsp" />
 </body>
 </html>

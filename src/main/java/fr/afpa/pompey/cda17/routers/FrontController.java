@@ -15,13 +15,18 @@ import fr.afpa.pompey.cda17.controllers.prospects.DeleteProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.ListeProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.UpdateProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.ViewProspectsController;
+import javax.sql.DataSource;
+
+import fr.afpa.pompey.cda17.logs.LogManager;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+import jakarta.annotation.Resource;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,10 +44,15 @@ public final class FrontController extends HttpServlet {
      */
     private final HashMap<String, Object> commands = new HashMap<>();
 
+    @Resource(name="jdbc/gestionClients")
+    public static DataSource datasource;
+
+    private static Connection connection;
+
     /**
      *
      */
-    public void init() {
+    public void init() throws ServletException {
         // Partie générale
         commands.put(null, new IndexController());
         commands.put("index", new IndexController());
@@ -63,7 +73,19 @@ public final class FrontController extends HttpServlet {
         commands.put("prospects/delete", new DeleteProspectsController());
         commands.put("prospects/update", new UpdateProspectsController());
         commands.put("prospects/view", new ViewProspectsController());
-        logger.log(Level.INFO, "init");
+
+        try {
+            LogManager.init();
+            LogManager.run();
+        } catch (IOException e) {
+            throw new ServletException(e);
+        }
+
+        try {
+            connection = datasource.getConnection();
+        } catch (SQLException e) {
+            throw new ServletException(e);
+        }
     }
 
     /**
@@ -99,6 +121,8 @@ public final class FrontController extends HttpServlet {
                 logger.log(Level.SEVERE, "IOException", e);
             }
         }
+
+        LogManager.logs.warning(connection.toString());
     }
 
     /**
@@ -127,5 +151,13 @@ public final class FrontController extends HttpServlet {
      *
      */
     public void destroy() {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        connection = null;
+
+        LogManager.stop();
     }
 }
