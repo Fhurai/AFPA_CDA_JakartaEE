@@ -74,12 +74,7 @@ public final class FrontController extends HttpServlet {
         commands.put("prospects/update", new UpdateProspectsController());
         commands.put("prospects/view", new ViewProspectsController());
 
-        try {
-            LogManager.init();
-            LogManager.run();
-        } catch (IOException e) {
-            throw new ServletException(e);
-        }
+        LogManager.run();
 
         try {
             connection = datasource.getConnection();
@@ -121,8 +116,6 @@ public final class FrontController extends HttpServlet {
                 logger.log(Level.SEVERE, "IOException", e);
             }
         }
-
-        LogManager.logs.warning(connection.toString());
     }
 
     /**
