@@ -21,21 +21,29 @@
         <section class="container" id="content">
             <span class="handlewidth">Page de connexion sur Reverso.</span>
         </section>
-        <form action="#" method="post">
+        <form method="post">
             <fieldset class="row modal-dialog-centered">
+                <ul class="banner-alert" id="bannerAlert">
+                    <c:forEach var="violation" items="${violations}"
+                               varStatus="status" >
+                        <li>${violation.getPropertyPath().toString()} ${violation.getMessage()}</li>
+                    </c:forEach>
+                </ul>
                 <div class="form-group col-md-6">
-                    <label for="adresseMailInput">Adresse Mail</label>
-                    <input id="adresseMailInput"
+                    <label for="usernameInput">Username</label>
+                    <input id="usernameInput"
                            class="form-control"
                            type="text"
+                           name="username"
                            pattern="^[A-Za-z0-9._%+\-]+@[A-Za-z0-9]+\.[A-Za-z0-9.\-]{2,}"
-                           placeholder="Adresse mail"
+                           placeholder="Username"
                            required
                            size="30">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="passwordInput">Mot de passe</label>
                     <input id="passwordInput"
+                           name="password"
                            class="form-control"
                            type="password"
                            placeholder="Mot de passe"

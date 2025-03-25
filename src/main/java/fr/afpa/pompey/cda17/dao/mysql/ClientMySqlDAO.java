@@ -40,7 +40,9 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
 
         try {
             con = FrontController.datasource.getConnection();
-            stmt = con.prepareStatement("SELECT * FROM `clients` LEFT JOIN `adresses` on `adresses`.`identifiant` = `clients`.`idAdresse`");
+            stmt = con.prepareStatement("SELECT * FROM `clients` " +
+                    "LEFT JOIN `adresses` " +
+                    "ON `adresses`.`identifiant` = `clients`.`idAdresse`");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -75,7 +77,10 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
 
         // Récupération de la requête de lecture à partir du tableau de
         // conditions de sélection.
-        String query = "SELECT * FROM clients WHERE `raisonSociale` LIKE ?";
+        String query = "SELECT * FROM clients " +
+                "LEFT JOIN `adresses` " +
+                "ON `adresses`.`identifiant` = `clients`.`idAdresse`" +
+                "WHERE `raisonSociale` LIKE ?";
 
         try {
             Connection con = FrontController.datasource.getConnection();
@@ -91,7 +96,6 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
                 // Si une ligne de résultat existe, l'objet de type T peut
                 // être valorisé.
                 client = this.parse(rs);
-                client.setContrats((new ContratMySqlDAO()).findByIdClient(client.getIdentifiant()));
             }
 
         } catch (SQLException e) {
@@ -139,7 +143,10 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
 
         // Récupération de la requête de lecture à partir du tableau de
         // conditions de sélection.
-        String query = "SELECT * FROM clients WHERE `identifiant` = ?";
+        String query = "SELECT * FROM clients " +
+                "LEFT JOIN `adresses` " +
+                "ON `adresses`.`identifiant` = `clients`.`idAdresse`" +
+                "WHERE `clients`.`identifiant` = ?";
 
         try {
             Connection con = FrontController.datasource.getConnection();

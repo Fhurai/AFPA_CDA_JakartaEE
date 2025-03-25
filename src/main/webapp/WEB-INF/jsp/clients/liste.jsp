@@ -106,13 +106,25 @@
                             <c:out value="${client.nbEmployes}" />
                         </div>
                         <div class="hovertable-cell small">
-                            <a href="?cmd=clients/view" title="Consulter">
+                            <a href="<c:url value="?cmd=clients/view">
+                                            <c:param name="clientId"
+                                            value="${client.identifiant}"
+                                            />
+                                     </c:url>" title="Consulter">
                                 <span class="material-symbols-outlined">visibility</span>
                             </a>
-                            <a href="?cmd=clients/update" title="Mettre à jour">
+                            <a href="<c:url value="?cmd=clients/update">
+                                            <c:param name="clientId"
+                                            value="${client.identifiant}"
+                                            />
+                                     </c:url>" title="Mettre à jour">
                                 <span class="material-symbols-outlined warning">edit</span>
                             </a>
-                            <a href="?cmd=clients/delete" title="Supprimer">
+                            <a href="<c:url value="?cmd=clients/delete">
+                                            <c:param name="clientId"
+                                            value="${client.identifiant}"
+                                            />
+                                     </c:url>" title="Supprimer">
                                 <span class="material-symbols-outlined danger">delete</span>
                             </a>
                         </div>

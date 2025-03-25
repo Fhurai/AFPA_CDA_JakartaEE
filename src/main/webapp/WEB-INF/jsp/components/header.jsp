@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand"
-               href="./index">
+               href="?cmd=index">
                 Reverso
             </a>
             <button class="navbar-toggler"
@@ -39,6 +39,8 @@
                             <div>Accueil</div>
                         </a>
                     </li>
+
+                    <c:if test="${not empty sessionScope.currentUser}">
                     <li class="nav-item"
                         aria-label="Partie Clients">
                         <a class="nav-link active"
@@ -55,27 +57,30 @@
                             <div>Prospects</div>
                         </a>
                     </li>
+                    </c:if>
                 </ul>
 
                 <hr>
 
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item"
-                        aria-label="Page de connexion">
-                        <a class="nav-link active"
-                           href="?cmd=connexion">
-                            <div class="material-symbols-outlined">login</div>
-                            <div>Connexion</div>
-                        </a>
-                    </li>
-                    <li class="nav-item"
-                        aria-label="Page de déconnexion">
-                        <a class="nav-link active"
-                           href="?cmd=deconnexion">
-                            <div class="material-symbols-outlined">logout</div>
-                            <div>Deconnexion</div>
-                        </a>
-                    </li>
+
+                    <c:if test="${empty sessionScope.currentUser}">
+                        <li class="nav-item" aria-label="Page de connexion">
+                            <a class="nav-link active" href="?cmd=connexion">
+                                <div class="material-symbols-outlined">login</div>
+                                <div>Connexion</div>
+                            </a>
+                        </li>
+                    </c:if>
+
+                    <c:if test="${not empty sessionScope.currentUser}">
+                        <li class="nav-item" aria-label="Page de déconnexion">
+                            <a class="nav-link active" href="?cmd=deconnexion">
+                                <div class="material-symbols-outlined">logout</div>
+                                <div>Deconnexion</div>
+                            </a>
+                        </li>
+                    </c:if>
                 </ul>
             </div>
         </div>

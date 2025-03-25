@@ -1,10 +1,6 @@
 package fr.afpa.pompey.cda17.routers;
 
-import fr.afpa.pompey.cda17.controllers.ICommand;
-import fr.afpa.pompey.cda17.controllers.IndexController;
-import fr.afpa.pompey.cda17.controllers.ContactController;
-import fr.afpa.pompey.cda17.controllers.ConnexionController;
-import fr.afpa.pompey.cda17.controllers.DeconnexionController;
+import fr.afpa.pompey.cda17.controllers.*;
 import fr.afpa.pompey.cda17.controllers.clients.CreationClientsController;
 import fr.afpa.pompey.cda17.controllers.clients.DeleteClientsController;
 import fr.afpa.pompey.cda17.controllers.clients.ListeClientsController;
@@ -18,12 +14,15 @@ import fr.afpa.pompey.cda17.controllers.prospects.ViewProspectsController;
 import javax.sql.DataSource;
 
 import fr.afpa.pompey.cda17.logs.LogManager;
+import fr.afpa.pompey.cda17.models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpSession;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -59,6 +58,7 @@ public final class FrontController extends HttpServlet {
         commands.put("contact", new ContactController());
         commands.put("connexion", new ConnexionController());
         commands.put("deconnexion", new DeconnexionController());
+//        commands.put("signin", new SigninController());
 
         // Partie clients
         commands.put("clients", new ListeClientsController());
@@ -95,7 +95,6 @@ public final class FrontController extends HttpServlet {
         try {
             // cmd correspond au nom du paramètre passé avec l’url
             String cmd = request.getParameter("cmd");
-            logger.log(Level.INFO, "cmd: " + cmd);
 
             // on récupère l’objet de la classe du contrôleur voulu
             ICommand com = (ICommand) commands.get(cmd);

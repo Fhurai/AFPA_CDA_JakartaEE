@@ -1,6 +1,8 @@
 package fr.afpa.pompey.cda17.controllers.clients;
 
 import fr.afpa.pompey.cda17.controllers.ICommand;
+import fr.afpa.pompey.cda17.dao.mysql.ClientMySqlDAO;
+import fr.afpa.pompey.cda17.models.Client;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.Contract;
@@ -17,7 +19,10 @@ public final class UpdateClientsController implements ICommand {
         request.setAttribute("titlePage", "Mise à jour");
         request.setAttribute("titleGroup", "Clients");
 
-//        request.setAttribute("client", Clients.getClient());
+        String clientId = request.getParameter("clientId");
+        Client client = new ClientMySqlDAO().findById(Integer.parseInt(clientId));
+
+        request.setAttribute("client", client);
 
         return "clients/view.jsp";
     }

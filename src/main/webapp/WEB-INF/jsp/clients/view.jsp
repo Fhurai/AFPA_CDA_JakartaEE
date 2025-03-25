@@ -1,4 +1,6 @@
 <%--@elvariable id="client" type="fr.afpa.pompey.cda17.models.Client"--%>
+<%--@elvariable id="titlePage" type="String"--%>
+<%--@elvariable id="violations" type="Set<ConstraintViolation<Client>>"--%>
 <%--
   Created by IntelliJ IDEA.
   User: CDA-01
@@ -24,16 +26,27 @@
         </section>
         <form action="#" method="post">
             <fieldset class="row modal-dialog-centered">
-                <input type="hidden" value="1" id="identifiantInput">
+                <c:if test="${titlePage != 'Création'}">
+                    <input type="hidden" value="1" id="identifiantInput">
+                </c:if>
+                <c:if test="${['Création', 'Mise à jour'].contains(titlePage)}">
+                    <ul class="banner-alert" id="bannerAlert">
+                        <c:forEach var="violation" items="${violations}"
+                                   varStatus="status" >
+                            <li>${violation.getPropertyPath().toString()} ${violation.getMessage()}</li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
                 <legend class="border-bottom mb-4">Partie société</legend>
                 <div class="form-group col-md-6">
                     <label for="raisonSocialeInput">Raison Sociale</label>
                     <input
                             class="form-control"
+                            name="raisonSociale"
                             id="raisonSocialeInput"
                             type="text"
-                            pattern="^[A-Za-zÀ-ÿ' \-]+$"
                             placeholder="Raison Sociale"
+                            pattern="^[A-Za-zÀ-ÿ' \-]+$"
                             required
                             size="30"
                             <c:if
@@ -47,10 +60,12 @@
                     <label for="telephoneInput">Téléphone</label>
                     <input
                             class="form-control"
+                            name="telephone"
                             id="telephoneInput"
                             type="text"
-                            pattern="^(?:\+33|0033|0)[1-9](?:[ .\-]?\d{2}){4}$"
                             placeholder="Téléphone"
+                            pattern="^(?:\+33|0033|0)[1-9](?:[ .\-]?\d{2}){4}$"
+                            required
                             size="12"
                             <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
                                 disabled
@@ -62,10 +77,12 @@
                     <label for="adresseMailInput">Adresse Mail</label>
                     <input
                             class="form-control"
+                            name="adresseMail"
                             id="adresseMailInput"
                             type="text"
-                            pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
                             placeholder="Adresse Mail"
+                            pattern="^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$"
+                            required
                             size="30"
                             <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
                                 disabled
@@ -77,6 +94,7 @@
                     <label for="commentairesTextarea">Commentaires</label>
                     <textarea
                             class="form-control"
+                            name="commentaires"
                             id="commentairesTextarea"
                             placeholder="Commentaires sur le client"
                             rows="5"
@@ -103,10 +121,12 @@
                     <label for="numeroRueInput">Numéro rue</label>
                     <input
                             class="form-control"
+                            name="numeroRue"
                             id="numeroRueInput"
                             type="text"
-                            pattern="(?:\d{0,3} +(bis|ter|quat)|(?:^|\b))|(?:\b\d{0,3}[ab]*\b)"
                             placeholder="Numero Rue"
+                            pattern="(?:\d{0,3} +(bis|ter|quat)|(?:^|\b))|(?:\b\d{0,3}[ab]*\b)"
+                            required
                             size="15"
                             <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
                                 disabled
@@ -118,10 +138,12 @@
                     <label for="nomRueInput">Nom rue</label>
                     <input
                             class="form-control"
+                            name="nomRue"
                             id="nomRueInput"
                             type="text"
-                            pattern="\b([a-zA-Z0-9]+(?:[.\- ']*[a-zA-Z0-9]+)*)\b"
                             placeholder="Nom Rue"
+                            pattern="\b([a-zA-Z0-9]+(?:[.\- ']*[a-zA-Z0-9]+)*)\b"
+                            required
                             size="30"
                             <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
                                 disabled
@@ -133,10 +155,12 @@
                     <label for="codePostalInput">Code Postal</label>
                     <input
                             class="form-control"
+                            name="codePostal"
                             id="codePostalInput"
                             type="text"
-                            pattern="\b\d{5}\b"
                             placeholder="Code Postal"
+                            pattern="\b\d{5}\b"
+                            required
                             size="5"
                             <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
                                 disabled
@@ -148,9 +172,11 @@
                     <label for="villeInput">Ville</label>
                     <input
                             class="form-control"
+                            name="ville"
                             id="villeInput"
                             type="text"
                             pattern="\b([a-zA-Z]+(?:[.\- ']*[a-zA-Z]+)*)\b"
+                            required
                             placeholder="Ville"
                             size="30"
                             <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
@@ -164,9 +190,11 @@
                     <label for="chiffreAffairesInput">Chiffre Affaires</label>
                     <input
                             class="form-control"
+                            name="chiffreAffaires"
                             id="chiffreAffairesInput"
                             type="number"
                             placeholder="Chiffre Affaires"
+                            required
                             size="15"
                             <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
                                 disabled
@@ -178,9 +206,11 @@
                     <label for="nbEmployesInput">Nb Employes</label>
                     <input
                             class="form-control"
+                            name="nbEmployes"
                             id="nbEmployesInput"
                             type="number"
                             placeholder="Nb Employes"
+                            required
                             size="5"
                             <c:if test="${['Consultation', 'Suppression'].contains(titlePage)}">
                                 disabled

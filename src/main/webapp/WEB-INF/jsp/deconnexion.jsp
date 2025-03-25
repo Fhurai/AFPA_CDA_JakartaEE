@@ -27,7 +27,7 @@
                 </span>
         </section>
 
-        <form action="#" method="post">
+        <form method="post">
             <fieldset class="row modal-dialog-centered">
                 <div class="form-group col-md-6 d-flex justify-content-center">
                     <input type="submit"
