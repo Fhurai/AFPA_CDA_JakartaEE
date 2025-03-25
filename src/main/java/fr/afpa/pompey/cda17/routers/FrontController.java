@@ -93,6 +93,7 @@ public final class FrontController extends HttpServlet {
         String urlSuite = "";
 
         try {
+
             // cmd correspond au nom du paramètre passé avec l’url
             String cmd = request.getParameter("cmd");
 
@@ -109,8 +110,15 @@ public final class FrontController extends HttpServlet {
             urlSuite = "error.jsp";
         } finally {
             try {
-                request.getRequestDispatcher("WEB-INF/jsp/"
-                        + urlSuite).forward(request, response);
+
+                if(urlSuite != null && urlSuite.startsWith("redirect:")) {
+                    urlSuite = urlSuite.substring(9);
+                    response.sendRedirect(request.getContextPath() + "/" + urlSuite);
+                    LogManager.logs.info(request.getContextPath() + "/" + urlSuite);
+                }else{
+                    request.getRequestDispatcher("WEB-INF/jsp/"
+                            + urlSuite).forward(request, response);
+                }
             } catch (ServletException e) {
                 logger.log(Level.SEVERE, "ServletException", e);
             } catch (IOException e) {

@@ -30,7 +30,7 @@ public final class DeleteProspectsController implements ICommand {
 
             if (request.getParameterMap().containsKey("delete")) {
                 (new ProspectMySqlDAO()).delete(prospect);
-                urlSuite = "index.jsp";
+                urlSuite = "redirect:?cmd=prospects";
             }
 
             request.setAttribute("prospect", prospect);

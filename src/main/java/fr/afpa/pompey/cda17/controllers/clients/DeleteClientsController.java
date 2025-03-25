@@ -31,7 +31,7 @@ public final class DeleteClientsController implements ICommand {
             if (request.getParameterMap().containsKey("delete")) {
 
                 (new ClientMySqlDAO()).delete(client);
-                urlSuite = "index.jsp";
+                urlSuite = "redirect:?cmd=clients";
             }
 
             request.setAttribute("client", client);

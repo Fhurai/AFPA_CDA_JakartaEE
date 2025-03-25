@@ -65,7 +65,7 @@ public final class UpdateProspectsController implements ICommand {
                     request.setAttribute("violations", violations);
                 } else {
                     (new ProspectMySqlDAO()).save(prospect);
-                    urlSuite = "index.jsp";
+                    urlSuite = "redirect:?cmd=prospects";
                 }
             }
 

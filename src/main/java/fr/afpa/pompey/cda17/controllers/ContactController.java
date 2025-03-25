@@ -12,6 +12,10 @@ public final class ContactController implements ICommand {
     public @NotNull String execute(final HttpServletRequest request,
                                    final HttpServletResponse response)
             throws Exception {
+
+        request.setAttribute("titlePage", "Contact");
+        request.setAttribute("titleGroup", "Général");
+
         return "contact.jsp";
     }
 }

@@ -63,7 +63,7 @@ public final class UpdateClientsController implements ICommand {
                 }else{
                     (new ClientMySqlDAO()).save(client);
 
-                    urlSuite = "index.jsp";
+                    urlSuite = "redirect:?cmd=clients";
                 }
             }
 

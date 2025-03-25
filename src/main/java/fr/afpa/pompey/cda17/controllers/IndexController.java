@@ -12,6 +12,9 @@ public final class IndexController implements ICommand {
     public @NotNull String execute(final HttpServletRequest request,
                                    final HttpServletResponse response)
             throws Exception {
+
+        request.setAttribute("titlePage", "Accueil");
+        request.setAttribute("titleGroup", "Général");
         return "index.jsp";
     }
 }

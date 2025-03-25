@@ -101,7 +101,8 @@
                         <div class="hovertable-cell handlewidth">
                             <c:out value="${prospect.dateProspection}" />
                         </div>
-                        <div class="hovertable-cell handlewidth">
+                        <div class="hovertable-cell handlewidth boolean
+                        ${prospect.prospectInteresse == "oui"}">
                             <c:out value="${prospect.prospectInteresse}" />
                         </div>
                         <div class="hovertable-cell small">

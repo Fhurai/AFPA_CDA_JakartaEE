@@ -43,13 +43,11 @@ public final class ConnexionController implements ICommand {
                     Argon2 argon2 = Argon2Factory.create();
                     char[] passwordWithSecret =
                             (appSecret + password).toCharArray();
-                    LogManager.logs.info("Password: " + passwordWithSecret);
-                    LogManager.logs.info("DB user: " + dbUser.getPassword());
 
                     try {
                         if (argon2.verify(dbUser.getPassword(), passwordWithSecret)) {
                             request.getSession().setAttribute("currentUser", dbUser);
-                            urlSuite = "index.jsp";
+                            urlSuite = "redirect:?cmd=index";
                         } else {
                             errors.add("Username ou password incorrecte");
                         }
