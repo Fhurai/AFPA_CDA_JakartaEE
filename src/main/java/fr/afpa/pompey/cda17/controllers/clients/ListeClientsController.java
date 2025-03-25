@@ -2,15 +2,13 @@ package fr.afpa.pompey.cda17.controllers.clients;
 
 import fr.afpa.pompey.cda17.controllers.ICommand;
 import fr.afpa.pompey.cda17.dao.mysql.ClientMySqlDAO;
-import fr.afpa.pompey.cda17.logs.LogManager;
 import fr.afpa.pompey.cda17.models.Client;
+import fr.afpa.pompey.cda17.utilities.Security;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public final class ListeClientsController implements ICommand {
@@ -21,17 +19,16 @@ public final class ListeClientsController implements ICommand {
                                    final HttpServletResponse response)
             throws Exception {
 
-        String urlSuite = "clients/liste.jsp";
+        request.setAttribute("titlePage", "Liste");
+        request.setAttribute("titleGroup", "Clients");
+        String jsp = "clients/liste.jsp";
 
-        HttpSession session = request.getSession(false);
+        String urlSuite = Security.estConnecte(request, jsp);
 
-        if (session == null || session.getAttribute("currentUser") == null) {
-            urlSuite = "connexion.jsp";
+        if(jsp.equals(urlSuite)) {
+            ArrayList<Client> clients = (new ClientMySqlDAO()).findAll();
+            request.setAttribute("clients", clients);
         }
-
-        ArrayList<Client> clients = (new ClientMySqlDAO()).findAll();
-
-        request.setAttribute("clients", clients);
 
         return urlSuite;
     }

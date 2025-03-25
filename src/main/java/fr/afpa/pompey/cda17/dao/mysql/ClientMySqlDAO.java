@@ -212,18 +212,10 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         try {
             con.setAutoCommit(false);
 
-            // Suppression des contrats du client.
-            for (Contrat contrat : obj.getContrats()) {
-                (new ContratMySqlDAO()).delete(contrat);
-            }
-
             // Création de l'objet requête et exécution de celle-ci.
             stmt = con.prepareStatement(query);
             stmt.setInt(1, obj.getIdentifiant());
             rowsAffected = stmt.executeUpdate();
-
-            // Suppression de la date liée au client.
-            (new AdresseMySqlDAO()).delete(obj.getAdresse());
 
             con.commit();
             con.setAutoCommit(true);
@@ -284,7 +276,7 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         boolean ret = false;
 
         // Sécurité unicité
-        if (this.checkRaisonSociale(obj.getRaisonSociale())) {
+        if (this.checkOtherRaisonSociale(obj.getRaisonSociale())) {
             throw new SocieteDatabaseException("La raison sociale existe déjà");
         }
 

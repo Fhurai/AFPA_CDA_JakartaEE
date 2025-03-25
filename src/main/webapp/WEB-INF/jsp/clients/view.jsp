@@ -21,10 +21,10 @@
         </header>
         <section class="container" id="content">
                 <span class="handlewidth">
-                    Vous consultez les données actuellement disponibles pour le client n°1 :
+                    Vous consultez les données actuellement disponibles pour le client :
                 </span>
         </section>
-        <form action="#" method="post">
+        <form method="post">
             <fieldset class="row modal-dialog-centered">
                 <c:if test="${titlePage != 'Création'}">
                     <input type="hidden" value="1" id="identifiantInput">
@@ -222,6 +222,9 @@
 
                 <c:if test="${titlePage != 'Consultation'}">
                 <div class="form-group col-md-12">
+                    <c:if test="${titlePage == 'Suppression'}">
+                        <input type="hidden" name="delete" value="true">
+                    </c:if>
                     <button
                         class="btn btn-primary float-end">
                         <c:out value="${(titlePage == \"Suppression\" ?

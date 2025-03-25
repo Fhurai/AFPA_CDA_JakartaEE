@@ -4,7 +4,6 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import fr.afpa.pompey.cda17.dao.mysql.UserMySqlDAO;
 import fr.afpa.pompey.cda17.logs.LogManager;
-import fr.afpa.pompey.cda17.models.Client;
 import fr.afpa.pompey.cda17.models.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

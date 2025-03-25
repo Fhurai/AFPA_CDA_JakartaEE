@@ -24,7 +24,7 @@ public final class DeconnexionController implements ICommand {
         }
 
         if (request.getSession(false) == null) {
-            urlSuite = "connexion.jsp";
+            urlSuite = "index.jsp";
         }
 
         request.setAttribute("titlePage", "Déconnexion");

@@ -72,143 +72,68 @@
                 </div>
             </div>
             <div class="hovertable-body">
-                <div class="hovertable-row">
-                    <div class="hovertable-cell smaller">1</div>
-                    <div class="hovertable-cell ">Skeb</div>
-                    <div class="hovertable-cell longer">28 Boulevard Albert 1er
-                        54000 Nancy
-                    </div>
-                    <div class="hovertable-cell ">0388553370</div>
-                    <div class="hovertable-cell long">contact@skeb.com</div>
-                    <div class="hovertable-cell handlewidth">2025-10-09</div>
-                    <div class="hovertable-cell handlewidth">false</div>
-                    <div class="hovertable-cell small">
-                        <a href="?cmd=prospects/view" title="Consulter">
+                <%-- If no clients --%>
+                <c:if test="${empty prospects}">
+                    No clients found.
+                </c:if>
+                <!-- Client Rows (repeated structure) -->
+                <c:forEach var="prospect" items="${prospects}"
+                           varStatus="status">
+                    <div class="hovertable-row">
+                        <div class="hovertable-cell smaller">
+                            <c:out value="${prospect.identifiant}" />
+                        </div>
+                        <div class="hovertable-cell ">
+                            <c:out value="${prospect.raisonSociale}" />
+                        </div>
+                        <div class="hovertable-cell longer">
+                            <c:out value="${prospect.adresse.numeroRue}
+                            ${prospect.adresse.nomRue}
+                            ${prospect.adresse.codePostal}
+                            ${prospect.adresse.ville}" />
+                        </div>
+                        <div class="hovertable-cell ">
+                            <c:out value="${prospect.telephone}" />
+                        </div>
+                        <div class="hovertable-cell long">
+                            <c:out value="${prospect.mail}" />
+                        </div>
+                        <div class="hovertable-cell handlewidth">
+                            <c:out value="${prospect.dateProspection}" />
+                        </div>
+                        <div class="hovertable-cell handlewidth">
+                            <c:out value="${prospect.prospectInteresse}" />
+                        </div>
+                        <div class="hovertable-cell small">
+                            <a href="<c:url value="?cmd=prospects/view">
+                                            <c:param name="prospectId"
+                                            value="${prospect.identifiant}"
+                                            />
+                                     </c:url>" title="Consulter">
                             <span class="material-symbols-outlined">
                                 visibility</span>
-                        </a>
-                        <a href="?cmd=prospects/update" title="Mettre à jour">
+                            </a>
+                            <a href="<c:url value="?cmd=prospects/update">
+                                            <c:param name="prospectId"
+                                            value="${prospect.identifiant}"
+                                            />
+                                     </c:url>" title="Mettre à jour">
                             <span class="material-symbols-outlined warning">
                                 edit
                             </span>
-                        </a>
-                        <a href="?cmd=prospects/delete" title="Supprimer">
+                            </a>
+                            <a href="<c:url value="?cmd=prospects/delete">
+                                            <c:param name="prospectId"
+                                            value="${prospect.identifiant}"
+                                            />
+                                     </c:url>" title="Supprimer">
                             <span class="material-symbols-outlined danger">
                                 delete
                             </span>
-                        </a>
+                            </a>
+                        </div>
                     </div>
-                </div>
-                <div class="hovertable-row">
-                    <div class="hovertable-cell smaller">2</div>
-                    <div class="hovertable-cell ">Vgen</div>
-                    <div class="hovertable-cell longer">80 ter Quai Voltaire
-                        95870 Bezons
-                    </div>
-                    <div class="hovertable-cell ">0173260000</div>
-                    <div class="hovertable-cell long">contact@vgen.com</div>
-                    <div class="hovertable-cell handlewidth">2024-05-28</div>
-                    <div class="hovertable-cell handlewidth">false</div>
-                    <div class="hovertable-cell small">
-                        <a href="?cmd=prospects/view" title="Consulter">
-                            <span class="material-symbols-outlined">
-                                visibility</span>
-                        </a>
-                        <a href="?cmd=prospects/update" title="Mettre à jour">
-                            <span class="material-symbols-outlined warning">
-                                edit
-                            </span>
-                        </a>
-                        <a href="?cmd=prospects/delete" title="Supprimer">
-                            <span class="material-symbols-outlined danger">
-                                delete
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="hovertable-row">
-                    <div class="hovertable-cell smaller">3</div>
-                    <div class="hovertable-cell ">Gank</div>
-                    <div class="hovertable-cell longer">276b Avenue du président
-                        Wilson 93210 St-Denis
-                    </div>
-                    <div class="hovertable-cell ">0387172390</div>
-                    <div class="hovertable-cell long">contact@gank.com</div>
-                    <div class="hovertable-cell handlewidth">2024-10-10</div>
-                    <div class="hovertable-cell handlewidth">true</div>
-                    <div class="hovertable-cell small">
-                        <a href="?cmd=prospects/view" title="Consulter">
-                            <span class="material-symbols-outlined">
-                                visibility</span>
-                        </a>
-                        <a href="?cmd=prospects/update" title="Mettre à jour">
-                            <span class="material-symbols-outlined warning">
-                                edit
-                            </span>
-                        </a>
-                        <a href="?cmd=prospects/delete" title="Supprimer">
-                            <span class="material-symbols-outlined danger">
-                                delete
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="hovertable-row">
-                    <div class="hovertable-cell smaller">4</div>
-                    <div class="hovertable-cell ">Artistsnclients</div>
-                    <div class="hovertable-cell longer">25 Rue Serpenoise 57000
-                        Metz
-                    </div>
-                    <div class="hovertable-cell ">0354626299</div>
-                    <div class="hovertable-cell long">
-                        contact@artistsnclients.com
-                    </div>
-                    <div class="hovertable-cell handlewidth">2023-10-15</div>
-                    <div class="hovertable-cell handlewidth">true</div>
-                    <div class="hovertable-cell small">
-                        <a href="?cmd=prospects/view" title="Consulter">
-                            <span class="material-symbols-outlined">
-                                visibility</span>
-                        </a>
-                        <a href="?cmd=prospects/update" title="Mettre à jour">
-                            <span class="material-symbols-outlined warning">
-                                edit
-                            </span>
-                        </a>
-                        <a href="?cmd=prospects/delete" title="Supprimer">
-                            <span class="material-symbols-outlined danger">
-                                delete
-                            </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="hovertable-row">
-                    <div class="hovertable-cell smaller">5</div>
-                    <div class="hovertable-cell ">Discord</div>
-                    <div class="hovertable-cell longer">46 Rue des Rats 54000
-                        Nancy
-                    </div>
-                    <div class="hovertable-cell ">0394135679</div>
-                    <div class="hovertable-cell long">contact@discord.gg</div>
-                    <div class="hovertable-cell handlewidth">2024-10-12</div>
-                    <div class="hovertable-cell handlewidth">false</div>
-                    <div class="hovertable-cell small">
-                        <a href="?cmd=prospects/view" title="Consulter">
-                            <span class="material-symbols-outlined">
-                                visibility</span>
-                        </a>
-                        <a href="?cmd=prospects/update" title="Mettre à jour">
-                            <span class="material-symbols-outlined warning">
-                                edit
-                            </span>
-                        </a>
-                        <a href="?cmd=prospects/delete" title="Supprimer">
-                            <span class="material-symbols-outlined danger">
-                                delete
-                            </span>
-                        </a>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </article>

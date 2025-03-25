@@ -104,6 +104,8 @@ public final class FrontController extends HttpServlet {
             urlSuite = com.execute(request, response);
         } catch (Exception e) {
             logger.log(Level.SEVERE, "Erreur : " + e.getMessage());
+            request.setAttribute("titlePage", "Erreur");
+            request.setAttribute("titleGroup", "Général");
             urlSuite = "error.jsp";
         } finally {
             try {

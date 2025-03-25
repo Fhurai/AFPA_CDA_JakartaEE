@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 
@@ -17,8 +16,8 @@ public final class ConnexionController implements ICommand {
 
     @Contract(pure = true)
     @Override
-    public @Nullable String execute(final HttpServletRequest request,
-                                    final HttpServletResponse response)
+    public @NotNull String execute(final HttpServletRequest request,
+                                   final HttpServletResponse response)
             throws Exception {
         User user = new User();
         ArrayList<String> errors = new ArrayList<>();
@@ -42,12 +41,14 @@ public final class ConnexionController implements ICommand {
 
                 if (dbUser != null) {
                     Argon2 argon2 = Argon2Factory.create();
-                    char[] passwordWithSecret = (appSecret + password).toCharArray();
+                    char[] passwordWithSecret =
+                            (appSecret + password).toCharArray();
+                    LogManager.logs.info("Password: " + passwordWithSecret);
+                    LogManager.logs.info("DB user: " + dbUser.getPassword());
 
                     try {
                         if (argon2.verify(dbUser.getPassword(), passwordWithSecret)) {
                             request.getSession().setAttribute("currentUser", dbUser);
-                            LogManager.logs.info("Utilisateur " + dbUser.getUsername() + " connecté");
                             urlSuite = "index.jsp";
                         } else {
                             errors.add("Username ou password incorrecte");

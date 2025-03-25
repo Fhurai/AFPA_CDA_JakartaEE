@@ -201,59 +201,43 @@ public class ProspectMySqlDAO extends SocieteMySqlDAO<Prospect> {
         try {
             con = FrontController.datasource.getConnection();
         } catch (SQLException e) {
-            throw new SocieteDatabaseException("Erreur lors de l'ouverture de" +
-                    " la connexion", e);
+            throw new SocieteDatabaseException("Erreur lors de l'ouverture de la connexion", e);
         }
-        PreparedStatement stmt;
+        PreparedStatement stmt = null;
         int rowsAffected;
 
-        // Récupération de la requête de suppression.
+        // Requête de suppression adaptée pour les prospects
         String query = "DELETE FROM prospects WHERE identifiant = ?";
 
         try {
             con.setAutoCommit(false);
-
-            // Création de l'objet requête et exécution de celle-ci.
             stmt = con.prepareStatement(query);
             stmt.setInt(1, obj.getIdentifiant());
             rowsAffected = stmt.executeUpdate();
-
-            // Suppression de la date liée au prospect.
-            (new AdresseMySqlDAO()).delete(obj.getAdresse());
-
-
             con.commit();
-            con.setAutoCommit(true);
 
         } catch (SQLException e) {
             try {
-                con.rollback();
-                con.setAutoCommit(true);
+                if(con != null) con.rollback();
             } catch (SQLException ex) {
-                // Exception attrapée, log de l'erreur et avertissement de
-                // l'utilisateur.
-                LogManager.logs.log(Level.SEVERE, e.getMessage());
-                throw new SocieteDatabaseException("Erreur lors de la sauvegarde.");
+                LogManager.logs.log(Level.SEVERE, "Erreur lors du rollback - Prospect", ex);
+                throw new SocieteDatabaseException("Erreur de transaction lors de la suppression du prospect");
             }
+            LogManager.logs.log(Level.SEVERE, "Erreur DAO Prospect : " + e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la suppression du prospect", e);
 
-            // Exception attrapée, log de l'erreur et avertissement de
-            // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+        } finally {
+            try {
+                if(stmt != null) stmt.close();
+                if(con != null) {
+                    con.setAutoCommit(true);
+                    con.close();
+                }
+            } catch (SQLException e) {
+                LogManager.logs.log(Level.WARNING, "Erreur fermeture connexion", e);
+            }
         }
 
-        try {
-            // Fermeture de la requête.
-            stmt.close();
-        } catch (SQLException e) {
-            // Exception attrapée, log de l'erreur et avertissement de
-            // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
-        }
-
-        // Retourne l'indication si la requête a modifié une et une seule
-        // ligne d'enregistrement.
         return rowsAffected == 1;
     }
 
@@ -281,7 +265,7 @@ public class ProspectMySqlDAO extends SocieteMySqlDAO<Prospect> {
         boolean ret = false;
 
         // Sécurité unicité
-        if (this.checkRaisonSociale(obj.getRaisonSociale())) {
+        if (this.checkOtherRaisonSociale(obj.getRaisonSociale())) {
             throw new SocieteDatabaseException("La raison sociale existe déjà");
         }
 
