@@ -4,7 +4,8 @@
  * @returns {string} String representing the current page path
  */
 function getCurrentPage() {
-    const pathArray = new URLSearchParams(window.location.search).get("cmd").split("/");
+    const cmd = new URLSearchParams(window.location.search).get("cmd");
+    const pathArray = cmd !== null ? cmd.split("/") : "index";
     let page;
 
     if (pathArray.length === 1) {

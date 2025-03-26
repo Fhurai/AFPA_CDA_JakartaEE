@@ -22,7 +22,7 @@
         <header><h1>Consultation</h1></header>
         <section class="container" id="content"><span class="handlewidth">Vous consultez les données actuellement disponibles pour le prospect n°1 :</span>
         </section>
-        <form action="#" method="post">
+        <form method="post">
             <fieldset class="row modal-dialog-centered">
                 <c:if test="${titlePage != 'Création'}">
                     <input type="hidden" value="1" id="identifiantInput">
