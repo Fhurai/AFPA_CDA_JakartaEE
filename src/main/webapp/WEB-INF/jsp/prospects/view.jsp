@@ -23,6 +23,7 @@
         <section class="container" id="content"><span class="handlewidth">Vous consultez les données actuellement disponibles pour le prospect n°1 :</span>
         </section>
         <form method="post">
+            <input type="hidden" name="_csrf" value="${_csrf}"/>
             <fieldset class="row modal-dialog-centered">
                 <c:if test="${titlePage != 'Création'}">
                     <input type="hidden" value="1" id="identifiantInput">
