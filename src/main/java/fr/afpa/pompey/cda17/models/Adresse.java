@@ -11,23 +11,44 @@ import jakarta.validation.constraints.Size;
  */
 public class Adresse {
 
+    /**
+     *
+     */
+    private final int postalLength = 5;
+
+    /**
+     *
+     */
     private int identifiant;
 
+    /**
+     *
+     */
     @NotBlank
     @Pattern(regexp = "(?:\\d{0,3} +(bis|ter|quat)|\\G(?<!^))|(?:\\b\\d{0,3}"
             + "(?:a|b)*\\b)")
     private String numeroRue;
 
+    /**
+     *
+     */
     @NotBlank
     @Pattern(regexp = "\\b([a-zA-Z\\u0080-\\u024F]+(?:. |-| |'))*"
-            + "[a-zA-Z\\u0080-\\u024F]*(?:[0-9]+)*([a-zA-Z\\u0080-\\u024F])*\\b")
+            + "[a-zA-Z\\u0080-\\u024F]*(?:[0-9]+)*"
+            + "([a-zA-Z\\u0080-\\u024F])*\\b")
     private String nomRue;
 
+    /**
+     *
+     */
     @NotBlank
-    @Size(min = 5, max = 5)
+    @Size(min = postalLength, max = postalLength)
     @Pattern(regexp = "\\b\\d{5}\\b")
     private String codePostal;
 
+    /**
+     *
+     */
     @NotBlank
     @Pattern(regexp = "\\b([a-zA-Z\\u0080-\\u024F]+(?:. |-| |'))*"
             + "[a-zA-Z\\u0080-\\u024F]*\\b")
@@ -36,19 +57,22 @@ public class Adresse {
     /**
      * Constructs an address with specified details.
      *
-     * @param identifiant Unique identifier for the address
-     * @param numeroRue   Street number (with optional suffix like bis, ter)
-     * @param nomRue      Street name
-     * @param codePostal  5-digit postal code
-     * @param ville       City name
+     * @param id Unique identifier for the address
+     * @param numero   Street number (with optional suffix like bis, ter)
+     * @param nom      Street name
+     * @param code      5-digit postal code
+     * @param villeParam       City name
      */
-    public Adresse(int identifiant, String numeroRue, String nomRue,
-                   String codePostal, String ville) {
-        setIdentifiant(identifiant);
-        setNumeroRue(numeroRue);
-        setNomRue(nomRue);
-        setCodePostal(codePostal);
-        setVille(ville);
+    public Adresse(final int id,
+                   final String numero,
+                   final String nom,
+                   final String code,
+                   final String villeParam) {
+        this.setIdentifiant(id);
+        this.setNumeroRue(numero);
+        this.setNomRue(nom);
+        this.setCodePostal(code);
+        this.setVille(villeParam);
     }
 
     /**
@@ -69,10 +93,10 @@ public class Adresse {
     /**
      * Sets the unique identifier.
      *
-     * @param identifiant Address identifier
+     * @param id Address identifier
      */
-    public void setIdentifiant(int identifiant) {
-        this.identifiant = identifiant;
+    public void setIdentifiant(final int id) {
+        this.identifiant = id;
     }
 
     /**
@@ -86,11 +110,11 @@ public class Adresse {
 
     /**
      * Sets the street number with validation.
-     *
-     * @param numeroRue Street number (e.g., "123 bis")
+     numero
+     * @param numero Street number (e.g., "123 bis")
      */
-    public void setNumeroRue(String numeroRue) {
-        this.numeroRue = numeroRue;
+    public void setNumeroRue(final String numero) {
+        this.numeroRue = numero;
     }
 
     /**
@@ -105,10 +129,10 @@ public class Adresse {
     /**
      * Sets the street name with validation.
      *
-     * @param nomRue Street name
+     * @param nom Street name
      */
-    public void setNomRue(String nomRue) {
-        this.nomRue = nomRue;
+    public void setNomRue(final String nom) {
+        this.nomRue = nom;
     }
 
     /**
@@ -123,10 +147,10 @@ public class Adresse {
     /**
      * Sets the postal code ensuring 5 digits.
      *
-     * @param codePostal 5-digit code
+     * @param code 5-digit code
      */
-    public void setCodePostal(String codePostal) {
-        this.codePostal = codePostal;
+    public void setCodePostal(final String code) {
+        this.codePostal = code;
     }
 
     /**
@@ -141,10 +165,10 @@ public class Adresse {
     /**
      * Sets the city name with validation.
      *
-     * @param ville City name
+     * @param villeParam City name
      */
-    public void setVille(String ville) {
-        this.ville = ville;
+    public void setVille(final String villeParam) {
+        this.ville = villeParam;
     }
 
     /**

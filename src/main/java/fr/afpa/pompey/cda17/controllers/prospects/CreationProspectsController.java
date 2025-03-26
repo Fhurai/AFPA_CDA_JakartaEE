@@ -28,7 +28,7 @@ public final class CreationProspectsController implements ICommand {
         String jsp = "prospects/view.jsp";
         String urlSuite = Security.estConnecte(request, jsp);
 
-        if(jsp.equals(urlSuite)) {
+        if (jsp.equals(urlSuite)) {
             if (request.getParameterMap().containsKey("raisonSociale")) {
                 Prospect prospect;
                 Adresse adresse;
@@ -48,16 +48,19 @@ public final class CreationProspectsController implements ICommand {
                         .deMail(request.getParameter("adresseMail"))
                         .deCommentaires(request.getParameter("commentaires"))
                         .dAdresse(adresse)
-                        .deDateProspection(request.getParameter("dateProspection"))
+                        .deDateProspection(request
+                                .getParameter("dateProspection"))
                         .dInteresse(request.getParameter(
                                 "prospectInteresse") != null ? "oui" : "non")
                         .build();
 
                 // Validation
-                Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-                Set<ConstraintViolation<Prospect>> violations = validator.validate(prospect);
+                Validator validator = Validation.buildDefaultValidatorFactory()
+                        .getValidator();
+                Set<ConstraintViolation<Prospect>> violations =
+                        validator.validate(prospect);
 
-                if(!violations.isEmpty()){
+                if (!violations.isEmpty()) {
                     request.setAttribute("violations", violations);
                 } else {
                     (new ProspectMySqlDAO()).save(prospect);

@@ -241,6 +241,9 @@ div.hovertable div.hovertable-body div.hovertable-row div.hovertable-cell:not(.s
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+div.hovertable div.hovertable-body div.hovertable-row div.hovertable-cell a {
+  text-decoration: none;
+}
 div.hovertable div.hovertable-body div.hovertable-row div.hovertable-cell a span.warning {
   color: var(--gc-warning-color);
 }

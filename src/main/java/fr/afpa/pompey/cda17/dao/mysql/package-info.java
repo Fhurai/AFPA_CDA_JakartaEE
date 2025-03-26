@@ -1,4 +1,4 @@
 /**
- * Package de la connexion DAO à une base MySql
+ * Package de la connexion DAO à une base MySql.
  */
 package fr.afpa.pompey.cda17.dao.mysql;

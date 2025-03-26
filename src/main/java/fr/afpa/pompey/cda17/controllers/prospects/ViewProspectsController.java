@@ -20,12 +20,12 @@ public final class ViewProspectsController implements ICommand {
         String jsp = "prospects/view.jsp";
         String urlSuite = Security.estConnecte(request, jsp);
 
-        if(jsp.equals(urlSuite)) {
+        if (jsp.equals(urlSuite)) {
             request.setAttribute("titlePage", "Consultation");
             request.setAttribute("titleGroup", "Prospects");
             String prospectId = request.getParameter("prospectId");
-            Prospect prospect =
-                    new ProspectMySqlDAO().findById(Integer.parseInt(prospectId));
+            Prospect prospect = new ProspectMySqlDAO()
+                            .findById(Integer.parseInt(prospectId));
 
             request.setAttribute("prospect", prospect);
         }

@@ -2,7 +2,6 @@ package fr.afpa.pompey.cda17.controllers.clients;
 
 import fr.afpa.pompey.cda17.controllers.ICommand;
 import fr.afpa.pompey.cda17.dao.mysql.ClientMySqlDAO;
-import fr.afpa.pompey.cda17.logs.LogManager;
 import fr.afpa.pompey.cda17.models.Client;
 import fr.afpa.pompey.cda17.utilities.Security;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,12 +20,13 @@ public final class DeleteClientsController implements ICommand {
         String jsp = "clients/view.jsp";
         String urlSuite = Security.estConnecte(request, jsp);
 
-        if(jsp.equals(urlSuite)) {
+        if (jsp.equals(urlSuite)) {
             request.setAttribute("titlePage", "Suppression");
             request.setAttribute("titleGroup", "Clients");
 
             String clientId = request.getParameter("clientId");
-            Client client = new ClientMySqlDAO().findById(Integer.parseInt(clientId));
+            Client client = new ClientMySqlDAO()
+                                .findById(Integer.parseInt(clientId));
 
             if (request.getParameterMap().containsKey("delete")) {
 

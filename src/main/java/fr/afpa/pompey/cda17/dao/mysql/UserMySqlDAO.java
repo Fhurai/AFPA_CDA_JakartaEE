@@ -3,7 +3,6 @@ package fr.afpa.pompey.cda17.dao.mysql;
 import fr.afpa.pompey.cda17.dao.DAO;
 import fr.afpa.pompey.cda17.dao.SocieteDatabaseException;
 import fr.afpa.pompey.cda17.logs.LogManager;
-import fr.afpa.pompey.cda17.models.Client;
 import fr.afpa.pompey.cda17.models.User;
 import fr.afpa.pompey.cda17.routers.FrontController;
 import org.jetbrains.annotations.NotNull;
@@ -16,21 +15,31 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class UserMySqlDAO extends DAO<User> {
+    /**
+     *
+     * @return
+     * @throws SocieteDatabaseException
+     */
     @Override
     public ArrayList<User> findAll() throws SocieteDatabaseException {
         return null;
     }
 
+    /**
+     *
+     * @param username Nom de l'objet T recherché.
+     * @return
+     * @throws SocieteDatabaseException
+     */
     @Override
-    public User find(String username) throws SocieteDatabaseException {
+    public User find(final String username) throws SocieteDatabaseException {
         // Initialisation des variables.
         User user = null;
         PreparedStatement stmt;
 
         // Récupération de la requête de lecture à partir du tableau de
         // conditions de sélection.
-        String query = "SELECT * FROM users " +
-                "WHERE `username` = ? ";
+        String query = "SELECT * FROM users WHERE `username` = ? ";
 
         try {
             Connection con = FrontController.datasource.getConnection();
@@ -54,8 +63,9 @@ public class UserMySqlDAO extends DAO<User> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la lecture de la base de données.");
         }
 
         try {
@@ -64,48 +74,66 @@ public class UserMySqlDAO extends DAO<User> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         return user;
     }
 
+    /**
+     *
+     * @param obj L'objet à supprimer.
+     * @return
+     * @throws SocieteDatabaseException
+     */
     @Override
-    public boolean delete(@NotNull User obj) throws SocieteDatabaseException {
+    public boolean delete(final @NotNull User obj)
+            throws SocieteDatabaseException {
         return false;
     }
 
+    /**
+     *
+     * @param obj L'objet à sauvegarder.
+     * @return
+     * @throws SocieteDatabaseException
+     */
     @Override
-    public boolean save(User obj) throws SocieteDatabaseException {
+    public boolean save(final User obj) throws SocieteDatabaseException {
         // Initialisation des variables communes.
         Connection conn = null;
         try {
             conn = FrontController.datasource.getConnection();
         } catch (SQLException e) {
-            throw new SocieteDatabaseException("Erreur lors de l'ouverture " +
-                    "de la connexion",e);
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de l'ouverture de la connexion", e);
         }
         PreparedStatement stmt;
         String query;
         boolean ret = false;
+        final int fieldId = 1;
+        final int fieldUsername = 2;
+        final int fieldPassword = 3;
+        final int fieldToken = 4;
 
-        try{
+        try {
             conn.setAutoCommit(false);
 
             // Initialisation variables UPDATE
-            query = "INSERT INTO " +
-                    "`users`(`identifiant`, `username`, `password`, `token`) " +
-                    "VALUES (?,?,?,?)";
+            query = "INSERT INTO "
+                    + "`users`(`identifiant`, `username`, `password`, "
+                    + "`token`) VALUES (?,?,?,?)";
 
             // Préparation requête à exécuter.
             stmt = conn.prepareStatement(query);
 
             // Liaison des données de l'utilisateur dans la requête.
-            stmt.setInt(1, obj.getId());
-            stmt.setString(2, obj.getUsername());
-            stmt.setString(3, obj.getPassword());
-            stmt.setString(4, obj.getToken());
+            stmt.setInt(fieldId, obj.getId());
+            stmt.setString(fieldUsername, obj.getUsername());
+            stmt.setString(fieldPassword, obj.getPassword());
+            stmt.setString(fieldToken, obj.getToken());
 
             // Exécution de la requête.
             ret = stmt.executeUpdate() == 1;
@@ -119,13 +147,14 @@ public class UserMySqlDAO extends DAO<User> {
             } catch (SQLException ex) {
                 // Exception attrapée, log de l'erreur et avertissement de
                 // l'utilisateur.
-                LogManager.logs.log(Level.SEVERE, e.getMessage());
-                throw new SocieteDatabaseException("Erreur lors de la sauvegarde.");
+                LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+                throw new SocieteDatabaseException("Erreur "
+                        + "lors de la sauvegarde.");
             }
 
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
             throw new SocieteDatabaseException("Erreur lors de la sauvegarde.");
         }
 
@@ -135,8 +164,9 @@ public class UserMySqlDAO extends DAO<User> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         // Retourne si la sauvegarde s'est bien passée ou non.

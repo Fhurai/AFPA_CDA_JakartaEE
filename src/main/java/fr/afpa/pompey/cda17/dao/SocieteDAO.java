@@ -2,12 +2,12 @@ package fr.afpa.pompey.cda17.dao;
 
 import fr.afpa.pompey.cda17.models.Societe;
 
-import java.util.List;
-
 /**
  * Classe DAO Société abstraite.
+ *
+ * @param <T>
  */
-abstract public class SocieteDAO<T extends Societe> extends DAO<T> {
+public abstract class SocieteDAO<T extends Societe> extends DAO<T> {
 
     /**
      * Check si la raison sociale donnée existe déjà dans l'autre table.
@@ -17,7 +17,8 @@ abstract public class SocieteDAO<T extends Societe> extends DAO<T> {
      * @throws SocieteDatabaseException Exception si la recherche des raisons
      *                                  sociales rencontre un problème.
      */
-    abstract protected boolean checkOtherRaisonSociale(String raisonSociale) throws SocieteDatabaseException;
+    protected abstract boolean checkOtherRaisonSociale(String raisonSociale)
+            throws SocieteDatabaseException;
 
     /**
      * Méthode pour trouver un objet de type T par son identifiant.
@@ -27,5 +28,5 @@ abstract public class SocieteDAO<T extends Societe> extends DAO<T> {
      * @throws SocieteDatabaseException Exception lors de la lecture ou de la
      *                                  fermeture des données.
      */
-    abstract public T findById(int identifiant) throws SocieteDatabaseException;
+    public abstract T findById(int identifiant) throws SocieteDatabaseException;
 }

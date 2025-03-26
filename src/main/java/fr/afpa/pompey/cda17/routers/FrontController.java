@@ -1,6 +1,10 @@
 package fr.afpa.pompey.cda17.routers;
 
-import fr.afpa.pompey.cda17.controllers.*;
+import fr.afpa.pompey.cda17.controllers.ConnexionController;
+import fr.afpa.pompey.cda17.controllers.ContactController;
+import fr.afpa.pompey.cda17.controllers.DeconnexionController;
+import fr.afpa.pompey.cda17.controllers.IndexController;
+import fr.afpa.pompey.cda17.controllers.ICommand;
 import fr.afpa.pompey.cda17.controllers.clients.CreationClientsController;
 import fr.afpa.pompey.cda17.controllers.clients.DeleteClientsController;
 import fr.afpa.pompey.cda17.controllers.clients.ListeClientsController;
@@ -11,18 +15,15 @@ import fr.afpa.pompey.cda17.controllers.prospects.DeleteProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.ListeProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.UpdateProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.ViewProspectsController;
-import javax.sql.DataSource;
-
 import fr.afpa.pompey.cda17.logs.LogManager;
-import fr.afpa.pompey.cda17.models.User;
+import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.annotation.Resource;
-import jakarta.servlet.http.HttpSession;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -43,9 +44,15 @@ public final class FrontController extends HttpServlet {
      */
     private final HashMap<String, Object> commands = new HashMap<>();
 
-    @Resource(name="jdbc/gestionClients")
+    /**
+     *
+     */
+    @Resource(name = "jdbc/gestionClients")
     public static DataSource datasource;
 
+    /**
+     *
+     */
     private static Connection connection;
 
     /**
@@ -110,12 +117,12 @@ public final class FrontController extends HttpServlet {
             urlSuite = "error.jsp";
         } finally {
             try {
-
-                if(urlSuite != null && urlSuite.startsWith("redirect:")) {
-                    urlSuite = urlSuite.substring(9);
-                    response.sendRedirect(request.getContextPath() + "/" + urlSuite);
-                    LogManager.logs.info(request.getContextPath() + "/" + urlSuite);
-                }else{
+                final String keyword = "redirect:";
+                if (urlSuite != null && urlSuite.startsWith(keyword)) {
+                    urlSuite = urlSuite.substring(keyword.length());
+                    response.sendRedirect(request.getContextPath()
+                            + "/" + urlSuite);
+                } else {
                     request.getRequestDispatcher("WEB-INF/jsp/"
                             + urlSuite).forward(request, response);
                 }

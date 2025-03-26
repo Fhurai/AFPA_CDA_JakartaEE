@@ -34,7 +34,8 @@ public class AdresseBuilder extends Builder<Adresse> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    public AdresseBuilder dIdentifiant(int identifiant) throws SocieteEntityException {
+    public AdresseBuilder dIdentifiant(final int identifiant)
+            throws SocieteEntityException {
         this.getEntity().setIdentifiant(identifiant);
         return this;
     }
@@ -46,7 +47,8 @@ public class AdresseBuilder extends Builder<Adresse> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    public AdresseBuilder dIdentifiant(String identifiant) throws SocieteEntityException {
+    public AdresseBuilder dIdentifiant(final String identifiant)
+            throws SocieteEntityException {
         return this.dIdentifiant(Integer.parseInt(identifiant));
     }
 
@@ -57,7 +59,8 @@ public class AdresseBuilder extends Builder<Adresse> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by numRue setter.
      */
-    public AdresseBuilder deNumeroRue(String numeroRue) throws SocieteEntityException {
+    public AdresseBuilder deNumeroRue(final String numeroRue)
+            throws SocieteEntityException {
         this.getEntity().setNumeroRue(numeroRue);
         return this;
     }
@@ -69,18 +72,21 @@ public class AdresseBuilder extends Builder<Adresse> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by nomRue setter.
      */
-    public AdresseBuilder deNomRue(String nomRue) throws SocieteEntityException {
+    public AdresseBuilder deNomRue(final String nomRue)
+            throws SocieteEntityException {
         this.getEntity().setNomRue(nomRue);
         return this;
     }
 
     /**
-     * Setter Code Postal
+     * Setter Code Postal.
+     *
      * @param codePostal Nouveau code postal.
      * @return This builder.
      * @throws SocieteEntityException Exception set by codePostal setter.
      */
-    public AdresseBuilder deCodePostal(String codePostal) throws SocieteEntityException {
+    public AdresseBuilder deCodePostal(final String codePostal)
+            throws SocieteEntityException {
         this.getEntity().setCodePostal(codePostal);
         return this;
     }
@@ -92,7 +98,8 @@ public class AdresseBuilder extends Builder<Adresse> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by ville setter.
      */
-    public AdresseBuilder deVille(String ville) throws SocieteEntityException {
+    public AdresseBuilder deVille(final String ville)
+            throws SocieteEntityException {
         this.getEntity().setVille(ville);
         return this;
     }

@@ -10,7 +10,7 @@ public final class SocieteDatabaseException extends Exception {
      *
      * @param message Message d'erreur concernant la base de données.
      */
-    public SocieteDatabaseException(String message) {
+    public SocieteDatabaseException(final String message) {
         super(message);
     }
 
@@ -20,7 +20,8 @@ public final class SocieteDatabaseException extends Exception {
      * @param message Message d'erreur concernant la base de données.
      * @param cause La cause de l'exception.
      */
-    public SocieteDatabaseException(String message, Throwable cause) {
+    public SocieteDatabaseException(final String message,
+                                    final Throwable cause) {
         super(message, cause);
     }
 }

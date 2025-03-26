@@ -29,7 +29,7 @@ public final class CreationClientsController implements ICommand {
         String jsp = "clients/view.jsp";
         String urlSuite = Security.estConnecte(request, jsp);
 
-        if(jsp.equals(urlSuite)) {
+        if (jsp.equals(urlSuite)) {
             if (request.getParameterMap().containsKey("raisonSociale")) {
                 Client client;
                 Adresse adresse;
@@ -44,21 +44,25 @@ public final class CreationClientsController implements ICommand {
 
                 // Set Client fields
                 client = ClientBuilder.getNewClientBuilder()
-                        .deRaisonSociale(request.getParameter("raisonSociale"))
+                        .deRaisonSociale(request
+                                        .getParameter("raisonSociale"))
                         .deTelephone(request.getParameter("telephone"))
                         .deMail(request.getParameter("adresseMail"))
                         .deCommentaires(request.getParameter("commentaires"))
                         .dAdresse(adresse)
-                        .deChiffreAffaires(request.getParameter("chiffreAffaires"))
+                        .deChiffreAffaires(request
+                                        .getParameter("chiffreAffaires"))
                         .deNombreEmployes(request.getParameter("nbEmployes"))
                         .build();
 
-                Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-                Set<ConstraintViolation<Client>> violations = validator.validate(client);
+                Validator validator = Validation.buildDefaultValidatorFactory()
+                                                .getValidator();
+                Set<ConstraintViolation<Client>> violations =
+                        validator.validate(client);
 
-                if(!violations.isEmpty()){
+                if (!violations.isEmpty()) {
                     request.setAttribute("violations", violations);
-                }else{
+                } else {
                     (new ClientMySqlDAO()).save(client);
 
                     urlSuite = "redirect:?cmd=clients";

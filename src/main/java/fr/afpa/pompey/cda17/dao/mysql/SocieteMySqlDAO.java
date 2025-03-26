@@ -8,6 +8,6 @@ import fr.afpa.pompey.cda17.models.Societe;
  *
  * @param <T> Le type de classe à typer.
  */
-abstract public class SocieteMySqlDAO<T extends Societe> extends SocieteDAO<T> {
+public abstract class SocieteMySqlDAO<T extends Societe> extends SocieteDAO<T> {
 
 }

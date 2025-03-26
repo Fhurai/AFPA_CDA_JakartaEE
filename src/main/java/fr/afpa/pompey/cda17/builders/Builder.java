@@ -1,11 +1,11 @@
 package fr.afpa.pompey.cda17.builders;
 
 /**
- * Classe générique builder
+ * Classe générique builder.
  *
  * @param <T> Classe de l'objet à construire.
  */
-abstract public class Builder<T> {
+public abstract class Builder<T> {
 
     /**
      * L'objet en cours de construction.
@@ -15,10 +15,10 @@ abstract public class Builder<T> {
     /**
      * Constructor.
      *
-     * @param entity Objet à construire.
+     * @param obj Objet à construire.
      */
-    public Builder(T entity) {
-        this.entity = entity;
+    public Builder(final T obj) {
+        this.entity = obj;
     }
 
     /**
@@ -30,5 +30,10 @@ abstract public class Builder<T> {
         return entity;
     }
 
-    abstract public T build();
+    /**
+     * Méthode de construction de l'objet.
+     *
+     * @return Objet construit.
+     */
+    public abstract T build();
 }

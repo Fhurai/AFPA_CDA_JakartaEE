@@ -7,26 +7,26 @@ import java.util.logging.Formatter;
 import java.util.logging.LogRecord;
 
 /**
- * Classe du formatter de logs
+ * Classe du formatter de logs.
  */
 public class LogFormatter extends Formatter {
     /**
-     * Méthode de formatage de logs
+     * Méthode de formatage de logs.
      *
      * @param record the log record to be formatted.
      * @return La ligne de log.
      */
     @Override
-    public String format(LogRecord record) {
+    public String format(final LogRecord record) {
 
-        return "[" +
-                record.getLevel() +
-                "] - " +
-                getFormattedDate() +
-                " | Class : " + record.getSourceClassName() +
-                " | Method : " + record.getSourceMethodName() +
-                "() | Message : " + record.getMessage() +
-                "\n";
+        return "["
+                + record.getLevel()
+                + "] - "
+                + getFormattedDate()
+                + " | Class : " + record.getSourceClassName()
+                + " | Method : " + record.getSourceMethodName()
+                + "() | Message : " + record.getMessage()
+                + "\n";
     }
 
     private String getFormattedDate() {

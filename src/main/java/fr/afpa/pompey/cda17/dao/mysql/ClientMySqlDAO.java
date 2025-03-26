@@ -3,7 +3,9 @@ package fr.afpa.pompey.cda17.dao.mysql;
 import fr.afpa.pompey.cda17.builders.ClientBuilder;
 import fr.afpa.pompey.cda17.dao.SocieteDatabaseException;
 import fr.afpa.pompey.cda17.logs.LogManager;
-import fr.afpa.pompey.cda17.models.*;
+import fr.afpa.pompey.cda17.models.Client;
+import fr.afpa.pompey.cda17.models.Societe;
+import fr.afpa.pompey.cda17.models.SocieteEntityException;
 import fr.afpa.pompey.cda17.routers.FrontController;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,7 +23,7 @@ import java.util.logging.Level;
 public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public ClientMySqlDAO() {
     }
@@ -40,9 +42,9 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
 
         try {
             con = FrontController.datasource.getConnection();
-            stmt = con.prepareStatement("SELECT * FROM `clients` " +
-                    "LEFT JOIN `adresses` " +
-                    "ON `adresses`.`identifiant` = `clients`.`idAdresse`");
+            stmt = con.prepareStatement("SELECT * FROM `clients` "
+                    + "LEFT JOIN `adresses` "
+                    + "ON `adresses`.`identifiant` = `clients`.`idAdresse`");
             rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -53,9 +55,26 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
             throw new SocieteDatabaseException("Database error", e);
         } finally {
             // Close resources in reverse order
-            try { if (rs != null) rs.close(); } catch (SQLException ignored) {}
-            try { if (stmt != null) stmt.close(); } catch (SQLException ignored) {}
-            try { if (con != null) con.close(); } catch (SQLException ignored) {}
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException ignored) {
+            }
+            try {
+                if (stmt != null) {
+                    stmt.close();
+                }
+            } catch (SQLException ignored) {
+
+            }
+            try {
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ignored) {
+
+            }
         }
 
         return clients;
@@ -70,17 +89,17 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
      *                                  de la fermeture des données.
      */
     @Override
-    public Client find(String name) throws SocieteDatabaseException {
+    public Client find(final String name) throws SocieteDatabaseException {
         // Initialisation des variables.
         Client client = null;
         PreparedStatement stmt;
 
         // Récupération de la requête de lecture à partir du tableau de
         // conditions de sélection.
-        String query = "SELECT * FROM clients " +
-                "LEFT JOIN `adresses` " +
-                "ON `adresses`.`identifiant` = `clients`.`idAdresse`" +
-                "WHERE `raisonSociale` LIKE ?";
+        String query = "SELECT * FROM clients "
+                + "LEFT JOIN `adresses` "
+                + "ON `adresses`.`identifiant` = `clients`.`idAdresse`"
+                + "WHERE `raisonSociale` LIKE ?";
 
         try {
             Connection con = FrontController.datasource.getConnection();
@@ -101,8 +120,9 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la lecture "
+                    + "de la base de données.");
         }
 
         try {
@@ -111,15 +131,23 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la fermeture "
+                    + "de l'accès aux données.");
         }
 
         return client;
     }
 
+    /**
+     *
+     * @param raisonSociale La raison sociale à check.
+     * @return
+     * @throws SocieteDatabaseException
+     */
     @Override
-    protected boolean checkOtherRaisonSociale(String raisonSociale) throws SocieteDatabaseException {
+    protected boolean checkOtherRaisonSociale(final String raisonSociale)
+            throws SocieteDatabaseException {
         ProspectMySqlDAO prospectMySqlDAO = new ProspectMySqlDAO();
         List<String> otherRaisonsSociales =
                 prospectMySqlDAO.findAll().stream()
@@ -136,17 +164,18 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
      * @throws SocieteDatabaseException Exception lors de la lecture ou lors
      *                                  de la fermeture des données.
      */
-    public Client findById(int identifiant) throws SocieteDatabaseException {
+    public Client findById(final int identifiant)
+            throws SocieteDatabaseException {
         // Initialisation des variables.
         Client client = null;
         PreparedStatement stmt;
 
         // Récupération de la requête de lecture à partir du tableau de
         // conditions de sélection.
-        String query = "SELECT * FROM clients " +
-                "LEFT JOIN `adresses` " +
-                "ON `adresses`.`identifiant` = `clients`.`idAdresse`" +
-                "WHERE `clients`.`identifiant` = ?";
+        String query = "SELECT * FROM clients "
+                + "LEFT JOIN `adresses` "
+                + "ON `adresses`.`identifiant` = `clients`.`idAdresse`"
+                + "WHERE `clients`.`identifiant` = ?";
 
         try {
             Connection con = FrontController.datasource.getConnection();
@@ -162,14 +191,16 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
                 // Si une ligne de résultat existe, l'objet de type T peut
                 // être valorisé.
                 client = this.parse(rs);
-                client.setContrats((new ContratMySqlDAO()).findByIdClient(client.getIdentifiant()));
+                client.setContrats((new ContratMySqlDAO())
+                        .findByIdClient(client.getIdentifiant()));
             }
 
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la lecture "
+                    + "de la base de données.");
         }
 
         try {
@@ -178,8 +209,9 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la fermeture "
+                    + "de l'accès aux données.");
         }
 
         return client;
@@ -194,14 +226,15 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
      *                                  de la fermeture des données.
      */
     @Override
-    public boolean delete(@NotNull Client obj) throws SocieteDatabaseException {
+    public boolean delete(final @NotNull Client obj)
+            throws SocieteDatabaseException {
         // Initialisation des variables.
         Connection con = null;
         try {
             con = FrontController.datasource.getConnection();
         } catch (SQLException e) {
-            throw new SocieteDatabaseException("Erreur lors de l'ouverture de" +
-                    " la connexion", e);
+            throw new SocieteDatabaseException("Erreur lors de l'ouverture de"
+                    + " la connexion", e);
         }
         PreparedStatement stmt;
         int rowsAffected;
@@ -227,14 +260,16 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
             } catch (SQLException ex) {
                 // Exception attrapée, log de l'erreur et avertissement de
                 // l'utilisateur.
-                LogManager.logs.log(Level.SEVERE, e.getMessage());
-                throw new SocieteDatabaseException("Erreur lors de la sauvegarde.");
+                LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+                throw new SocieteDatabaseException("Erreur "
+                        + "lors de la sauvegarde.");
             }
 
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la lecture de la base de données.");
         }
 
         try {
@@ -243,8 +278,9 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         // Retourne l'indication si la requête a modifié une et une seule
@@ -259,26 +295,38 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
      * @param obj Le client à sauvegarder.
      * @return Indication si la sauvegarde s'est bien passé.
      * @throws SocieteDatabaseException Exception lors de la création, de la
-     *                                  modification ou de la fermeture des données.
+     *                                  modification ou de la fermeture
+     *                                  des données.
      */
     @Override
-    public boolean save(@NotNull Client obj) throws SocieteDatabaseException {
-        // Initialisation des variables communes.
-        Connection conn = null;
-        try {
-            conn = FrontController.datasource.getConnection();
-        } catch (SQLException e) {
-            throw new SocieteDatabaseException("Erreur lors de l'ouverture " +
-                    "de la connexion",e);
-        }
-        PreparedStatement stmt;
-        String query;
-        boolean ret = false;
+    public boolean save(final @NotNull Client obj)
+            throws SocieteDatabaseException {
 
         // Sécurité unicité
         if (this.checkOtherRaisonSociale(obj.getRaisonSociale())) {
             throw new SocieteDatabaseException("La raison sociale existe déjà");
         }
+
+        // Initialisation des variables communes.
+        Connection conn = null;
+        try {
+            conn = FrontController.datasource.getConnection();
+        } catch (SQLException e) {
+            throw new SocieteDatabaseException("Erreur lors de l'ouverture "
+                    + "de la connexion", e);
+        }
+        PreparedStatement stmt;
+        String query;
+        boolean ret = false;
+
+        final int fieldRaisonSociale = 1;
+        final int fieldTelephone = 2;
+        final int fieldEmail = 3;
+        final int fieldCommentaires = 4;
+        final int fieldCA = 5;
+        final int fieldNbEmployes = 6;
+        final int fieldIdAdresse = 7;
+        final int fieldId = 8;
 
         try {
             conn.setAutoCommit(false);
@@ -289,20 +337,24 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
                 (new AdresseMySqlDAO()).save(obj.getAdresse());
 
                 // Initialisation variables UPDATE
-                query = "UPDATE clients SET `raisonSociale` = ?,`telephone` = ?,`mail` = ?, `commentaires` = ?,`chiffreAffaires` = ?,`nbEmployes` = ?,`idAdresse` = ?  WHERE `identifiant` = ?";
+                query = "UPDATE clients "
+                        + "SET `raisonSociale` = ?,`telephone` = ?,"
+                        + "`mail` = ?, `commentaires` = ?,`chiffreAffaires` ="
+                        + " ?,`nbEmployes` = ?,`idAdresse` = ?  WHERE "
+                        + "`identifiant` = ?";
 
                 // Préparation requête à exécuter.
                 stmt = conn.prepareStatement(query);
 
                 // Liaison des données de la société dans la requête.
-                stmt.setString(1, obj.getRaisonSociale());
-                stmt.setString(2, obj.getTelephone());
-                stmt.setString(3, obj.getMail());
-                stmt.setString(4, obj.getCommentaires());
-                stmt.setLong(5, obj.getChiffreAffaires());
-                stmt.setInt(6, obj.getNbEmployes());
-                stmt.setInt(7, obj.getAdresse().getIdentifiant());
-                stmt.setInt(8, obj.getIdentifiant());
+                stmt.setString(fieldRaisonSociale, obj.getRaisonSociale());
+                stmt.setString(fieldTelephone, obj.getTelephone());
+                stmt.setString(fieldEmail, obj.getMail());
+                stmt.setString(fieldCommentaires, obj.getCommentaires());
+                stmt.setLong(fieldCA, obj.getChiffreAffaires());
+                stmt.setInt(fieldNbEmployes, obj.getNbEmployes());
+                stmt.setInt(fieldIdAdresse, obj.getAdresse().getIdentifiant());
+                stmt.setInt(fieldId, obj.getIdentifiant());
 
                 // Exécution de la requête.
                 ret = stmt.executeUpdate() == 1;
@@ -313,20 +365,23 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
 
                 // Initialisation variables CREATE
                 ResultSet rs;
-                query = "INSERT INTO `clients`(`raisonSociale`, `telephone`, `mail`, `commentaires`, `chiffreAffaires`, `nbEmployes`, `idAdresse`) " +
-                        "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                query = "INSERT INTO `clients`(`raisonSociale`, `telephone`, "
+                        + "`mail`, `commentaires`, `chiffreAffaires`, "
+                        + "`nbEmployes`, `idAdresse`) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
                 // Préparation requête à exécuter.
-                stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+                stmt = conn.prepareStatement(query,
+                        PreparedStatement.RETURN_GENERATED_KEYS);
 
                 // Liaison des données de la société dans la requête.
-                stmt.setString(1, obj.getRaisonSociale());
-                stmt.setString(2, obj.getTelephone());
-                stmt.setString(3, obj.getMail());
-                stmt.setString(4, obj.getCommentaires());
-                stmt.setLong(5, obj.getChiffreAffaires());
-                stmt.setInt(6, obj.getNbEmployes());
-                stmt.setInt(7, obj.getAdresse().getIdentifiant());
+                stmt.setString(fieldRaisonSociale, obj.getRaisonSociale());
+                stmt.setString(fieldTelephone, obj.getTelephone());
+                stmt.setString(fieldEmail, obj.getMail());
+                stmt.setString(fieldCommentaires, obj.getCommentaires());
+                stmt.setLong(fieldCA, obj.getChiffreAffaires());
+                stmt.setInt(fieldNbEmployes, obj.getNbEmployes());
+                stmt.setInt(fieldIdAdresse, obj.getAdresse().getIdentifiant());
 
                 // Exécution de la requête.
                 stmt.executeUpdate();
@@ -347,13 +402,14 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
             } catch (SQLException ex) {
                 // Exception attrapée, log de l'erreur et avertissement de
                 // l'utilisateur.
-                LogManager.logs.log(Level.SEVERE, e.getMessage());
-                throw new SocieteDatabaseException("Erreur lors de la sauvegarde.");
+                LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+                throw new SocieteDatabaseException("Erreur "
+                        + "lors de la sauvegarde.");
             }
 
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
             throw new SocieteDatabaseException("Erreur lors de la sauvegarde.");
         }
 
@@ -363,8 +419,9 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         // Retourne si la sauvegarde s'est bien passée ou non.
@@ -378,7 +435,8 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
      * @return Client Le client récupéré.
      * @throws SocieteDatabaseException Exception lors de la récupération.
      */
-    private @NotNull Client parse(@NotNull ResultSet rs) throws SocieteDatabaseException {
+    private @NotNull Client parse(final @NotNull ResultSet rs)
+            throws SocieteDatabaseException {
         try {
             return ClientBuilder.getNewClientBuilder()
                     .dIdentifiant(rs.getInt("identifiant"))
@@ -386,7 +444,8 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
                     .deTelephone(rs.getString("telephone"))
                     .deMail(rs.getString("mail"))
                     .deCommentaires(rs.getString("commentaires"))
-                    .deChiffreAffaires(rs.getString("chiffreAffaires"))
+                    .deChiffreAffaires(rs
+                            .getString("chiffreAffaires"))
                     .deNombreEmployes(rs.getInt("nbEmployes"))
                     .avecAdresse(rs.getString("idAdresse"),
                             rs.getString("numRue"),
@@ -396,11 +455,11 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
                     .build();
         } catch (SocieteEntityException | SQLException e) {
             // Log exception.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
 
             // Lancement d'une exception lisible par l'utilisateur.
-            throw new SocieteDatabaseException("Erreur de la récupération du " +
-                    "client depuis la base de données.", e);
+            throw new SocieteDatabaseException("Erreur de la récupération du "
+                    + "client depuis la base de données.", e);
         }
     }
 }

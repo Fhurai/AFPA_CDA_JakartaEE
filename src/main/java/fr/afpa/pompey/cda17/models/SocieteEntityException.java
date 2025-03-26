@@ -5,11 +5,21 @@ package fr.afpa.pompey.cda17.models;
  */
 public final class SocieteEntityException extends Exception {
 
-    public SocieteEntityException(String message) {
+    /**
+     *
+     * @param message
+     */
+    public SocieteEntityException(final String message) {
         super(message);
     }
 
-    public SocieteEntityException(String message, Throwable cause) {
+    /**
+     *
+     * @param message
+     * @param cause
+     */
+    public SocieteEntityException(final String message,
+                                  final Throwable cause) {
         super(message, cause);
     }
 }

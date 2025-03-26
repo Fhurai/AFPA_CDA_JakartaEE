@@ -10,35 +10,46 @@ import java.util.logging.Logger;
 /**
  * Classe du gestionnaire de logs.
  */
-public class LogManager {
-
-    // Variables de classe
-    public static final Logger logs = Logger.getLogger(LogManager.class.getName());
+public final class LogManager {
 
     /**
-     * Initialisation du gestionnaire de logs
+     * Constructeur privé pour empêcher l'instanciation de la classe utilitaire.
+     */
+    private LogManager() {
+        throw new IllegalStateException("Classe utilitaire, ne pas instancier");
+    }
+
+    /**
+     *
+     */
+    public static final Logger LOGS =
+            Logger.getLogger(LogManager.class.getName());
+
+    /**
+     * Initialisation du gestionnaire de logs.
      */
     public static void init() throws IOException {
         LocalDate date = LocalDate.now();
         DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        FileHandler fh = new FileHandler("logs/log" + date.format(df) + ".log", true);
-        logs.setUseParentHandlers(false);
-        logs.addHandler(fh);
+        FileHandler fh = new FileHandler("logs/log"
+                + date.format(df) + ".log", true);
+        LOGS.setUseParentHandlers(false);
+        LOGS.addHandler(fh);
         fh.setFormatter(new LogFormatter());
-        logs.info(System.lineSeparator());
+        LOGS.info(System.lineSeparator());
     }
 
     /**
      * Méthode de log du lancement de l'application.
      */
     public static void run() {
-        logs.log(Level.INFO, "Software running...");
+        LOGS.log(Level.INFO, "Software running...");
     }
 
     /**
      * Méthode de log de la fermeture de l'application.
      */
     public static void stop() {
-        logs.log(Level.INFO, "Software stopped !");
+        LOGS.log(Level.INFO, "Software stopped !");
     }
 }

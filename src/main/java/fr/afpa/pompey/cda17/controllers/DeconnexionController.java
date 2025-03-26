@@ -17,7 +17,7 @@ public final class DeconnexionController implements ICommand {
         String urlSuite = "deconnexion.jsp";
         HttpSession session = request.getSession(false);
 
-        if(request.getParameterMap().containsKey("answer")) {
+        if (request.getParameterMap().containsKey("answer")) {
             if (session != null) {
                 session.invalidate();
             }

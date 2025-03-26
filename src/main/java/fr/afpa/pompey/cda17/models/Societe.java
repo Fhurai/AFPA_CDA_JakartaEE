@@ -11,182 +11,184 @@ import jakarta.validation.constraints.Pattern;
  */
 public abstract class Societe {
 
+    /**
+     * Unique identifier for the company.
+     */
     @NotNull
     private int identifiant;
 
+    /**
+     * Legal name of the company (non-blank).
+     */
     @NotNull
     @NotBlank
     private String raisonSociale;
 
+    /**
+     * Physical address of the company.
+     */
     @NotNull
     @Valid
     private Adresse adresse;
 
+    /**
+     * Valid French phone number.
+     */
     @NotNull
     @Pattern(regexp = "^(?:(?:\\+|00)33|0)\\s*[1-9]"
             + "(?:[\\s.-]*\\d{2}){4}")
     private String telephone;
 
+    /**
+     * Valid email address.
+     */
     @NotNull
     @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+"
             + "@[a-zA-Z0-9.-]+$")
     private String mail;
 
+    /**
+     * Additional comments about the company.
+     */
     private String commentaires;
 
     /**
-     * Constructs a Societe with all fields including identifiant.
+     * Constructs a Societe without identifier.
      *
-     * @param identifiant the unique identifier
-     * @param raisonSociale the company's legal name
-     * @param adresse the company's address
-     * @param telephone the company's phone number
-     * @param mail the company's email
-     * @param commentaires additional comments about the company
+     * @param raisonSoc Legal name
+     * @param adr      Physical address
+     * @param tel      French phone number
+     * @param email    Valid email
+     * @param comment  Additional comments
      */
-    public Societe(int identifiant, String raisonSociale, Adresse adresse,
-                   String telephone, String mail, String commentaires) {
-        setIdentifiant(identifiant);
-        setRaisonSociale(raisonSociale);
-        setAdresse(adresse);
-        setTelephone(telephone);
-        setMail(mail);
-        setCommentaires(commentaires);
-    }
-
-    /**
-     * Constructs a Societe without specifying identifiant (defaults to 0).
-     *
-     * @param raisonSociale the company's legal name
-     * @param adresse the company's address
-     * @param telephone the company's phone number
-     * @param mail the company's email
-     * @param commentaires additional comments about the company
-     */
-    public Societe(String raisonSociale, Adresse adresse, String telephone,
-                   String mail, String commentaires) {
+    public Societe(
+            final String raisonSoc,
+            final Adresse adr,
+            final String tel,
+            final String email,
+            final String comment) {
         this.identifiant = 0;
-        setRaisonSociale(raisonSociale);
-        setAdresse(adresse);
-        setTelephone(telephone);
-        setMail(mail);
-        setCommentaires(commentaires);
+        setRaisonSociale(raisonSoc);
+        setAdresse(adr);
+        setTelephone(tel);
+        setMail(email);
+        setCommentaires(comment);
     }
 
     /**
-     * Default constructor for Societe.
+     * Default constructor.
      */
     public Societe() {
     }
 
     /**
-     * Retrieves the comments about the company.
      *
-     * @return the commentaires
+     * @return Les commentaires sur la société.
      */
     public String getCommentaires() {
         return commentaires;
     }
 
     /**
-     * Sets the comments about the company.
+     * Sets additional comments.
      *
-     * @param commentaires the commentaires to set
+     * @param comment New comments
      */
-    public void setCommentaires(String commentaires) {
-        this.commentaires = commentaires;
+    public void setCommentaires(final String comment) {
+        this.commentaires = comment;
     }
 
     /**
-     * Retrieves the company's email address.
      *
-     * @return the mail
+     * @return Le mail de la société.
      */
     public String getMail() {
         return mail;
     }
 
     /**
-     * Sets the company's email address.
+     * Sets email address.
      *
-     * @param mail the mail to set
+     * @param email New email
      */
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setMail(final String email) {
+        this.mail = email;
     }
 
     /**
-     * Retrieves the company's phone number.
      *
-     * @return the telephone
+     * @return Le téléphone de la société.
      */
     public String getTelephone() {
         return telephone;
     }
 
     /**
-     * Sets the company's phone number.
+     * Sets phone number.
      *
-     * @param telephone the telephone to set
+     * @param tel New phone number
      */
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setTelephone(final String tel) {
+        this.telephone = tel;
     }
 
     /**
-     * Retrieves the company's address.
      *
-     * @return the adresse
+     * @return L'adresse de la société.
      */
     public Adresse getAdresse() {
         return adresse;
     }
 
     /**
-     * Sets the company's address.
+     * Sets physical address.
      *
-     * @param adresse the adresse to set
+     * @param adr New address
      */
-    public void setAdresse(Adresse adresse) {
-        this.adresse = adresse;
+    public void setAdresse(final Adresse adr) {
+        this.adresse = adr;
     }
 
     /**
-     * Retrieves the company's legal name.
      *
-     * @return the raisonSociale
+     * @return La raison sociale de la société.
      */
     public String getRaisonSociale() {
         return raisonSociale;
     }
 
     /**
-     * Sets the company's legal name.
+     * Sets legal name.
      *
-     * @param raisonSociale the raisonSociale to set
+     * @param raisonSoc New legal name
      */
-    public void setRaisonSociale(String raisonSociale) {
-        this.raisonSociale = raisonSociale;
+    public void setRaisonSociale(final String raisonSoc) {
+        this.raisonSociale = raisonSoc;
     }
 
     /**
-     * Retrieves the company's identifier.
      *
-     * @return the identifiant
+     * @return Identifiant de la société.
      */
     public int getIdentifiant() {
         return identifiant;
     }
 
     /**
-     * Sets the company's identifier.
+     * Sets unique identifier.
      *
-     * @param identifiant the identifiant to set
+     * @param id New identifier
      */
-    public void setIdentifiant(int identifiant) {
-        this.identifiant = identifiant;
+    public void setIdentifiant(final int id) {
+        this.identifiant = id;
     }
 
+    /**
+     * {@inheritDoc}
+     * Provides a string representation of the company.
+     * Subclasses should use {@code super.toString()} and
+     * append additional fields.
+     */
     @Override
     public String toString() {
         return "identifiant=" + getIdentifiant()

@@ -1,10 +1,15 @@
-package utilities;
+package fr.afpa.pompey.cda17.utilities;
 
 /**
  * Exception sur les utilitaires du project.
  */
 public class SocieteUtilitiesException extends Exception {
-    public SocieteUtilitiesException(String message) {
+    /**
+     *
+     * @param message
+     */
+    public SocieteUtilitiesException(final String message) {
+
         super(message);
     }
 }

@@ -25,7 +25,7 @@ public final class ListeClientsController implements ICommand {
 
         String urlSuite = Security.estConnecte(request, jsp);
 
-        if(jsp.equals(urlSuite)) {
+        if (jsp.equals(urlSuite)) {
             ArrayList<Client> clients = (new ClientMySqlDAO()).findAll();
             request.setAttribute("clients", clients);
         }

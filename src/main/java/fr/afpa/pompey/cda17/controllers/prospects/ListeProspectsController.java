@@ -21,7 +21,7 @@ public final class ListeProspectsController implements ICommand {
 
         String urlSuite = Security.estConnecte(request, jsp);
 
-        if(jsp.equals(urlSuite)) {
+        if (jsp.equals(urlSuite)) {
             ArrayList<Prospect> prospects = (new ProspectMySqlDAO()).findAll();
             request.setAttribute("prospects", prospects);
         }

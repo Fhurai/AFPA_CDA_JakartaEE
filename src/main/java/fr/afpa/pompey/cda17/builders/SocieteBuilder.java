@@ -16,7 +16,7 @@ abstract class SocieteBuilder<T extends Societe> extends Builder<T> {
      *
      * @param entity L'entité fille à construire.
      */
-    public SocieteBuilder(T entity) {
+    SocieteBuilder(final T entity) {
         super(entity);
     }
 
@@ -27,7 +27,8 @@ abstract class SocieteBuilder<T extends Societe> extends Builder<T> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    abstract public Builder<T> dIdentifiant(int identifiant) throws SocieteEntityException;
+    public abstract Builder<T> dIdentifiant(int identifiant)
+            throws SocieteEntityException;
 
     /**
      * Setter identifiant.
@@ -36,16 +37,18 @@ abstract class SocieteBuilder<T extends Societe> extends Builder<T> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    abstract public Builder<T> dIdentifiant(String identifiant) throws SocieteEntityException;
+    public abstract Builder<T> dIdentifiant(String identifiant)
+            throws SocieteEntityException;
 
     /**
-     * Setter Raison Sociale
+     * Setter Raison Sociale.
      *
      * @param raisonSociale Nouvelle raison sociale.
      * @return This builder.
      * @throws SocieteEntityException Exception set by the raisonSociale setter.
      */
-    abstract public Builder<T> deRaisonSociale(String raisonSociale) throws SocieteEntityException;
+    public abstract Builder<T> deRaisonSociale(String raisonSociale)
+            throws SocieteEntityException;
 
     /**
      * Setter Adresse.
@@ -54,7 +57,8 @@ abstract class SocieteBuilder<T extends Societe> extends Builder<T> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the adresse setter.
      */
-    abstract public Builder<T> dAdresse(Adresse adresse) throws SocieteEntityException;
+    public abstract Builder<T> dAdresse(Adresse adresse)
+            throws SocieteEntityException;
 
     /**
      * Setter Adresse.
@@ -67,8 +71,12 @@ abstract class SocieteBuilder<T extends Societe> extends Builder<T> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by one of Adresse setter.
      */
-    abstract public Builder<T> avecAdresse(String identifiant, String numRue,
-                                           String nomRue, String codePostal, String ville) throws SocieteEntityException;
+    public abstract Builder<T> avecAdresse(String identifiant,
+                                           String numRue,
+                                           String nomRue,
+                                           String codePostal,
+                                           String ville)
+            throws SocieteEntityException;
 
     /**
      * Setter Telephone.
@@ -77,7 +85,8 @@ abstract class SocieteBuilder<T extends Societe> extends Builder<T> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by telephone setter.
      */
-    abstract public Builder<T> deTelephone(String telephone) throws SocieteEntityException;
+    public abstract Builder<T> deTelephone(String telephone)
+            throws SocieteEntityException;
 
     /**
      * Setter Mail.
@@ -86,7 +95,8 @@ abstract class SocieteBuilder<T extends Societe> extends Builder<T> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by mail setter.
      */
-    abstract public Builder<T> deMail(String mail) throws SocieteEntityException;
+    public abstract Builder<T> deMail(String mail)
+            throws SocieteEntityException;
 
     /**
      * Setter Commentaires.
@@ -95,5 +105,6 @@ abstract class SocieteBuilder<T extends Societe> extends Builder<T> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the commentaires setter.
      */
-    abstract public Builder<T> deCommentaires(String commentaires) throws SocieteEntityException;
+    public abstract Builder<T> deCommentaires(String commentaires)
+            throws SocieteEntityException;
 }

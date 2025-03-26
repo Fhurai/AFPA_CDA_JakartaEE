@@ -22,7 +22,7 @@ import java.util.logging.Level;
 public class ContratMySqlDAO extends DAO<Contrat> {
 
     /**
-     * Constructeur
+     * Constructeur.
      */
     public ContratMySqlDAO() {
         super();
@@ -53,8 +53,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la lecture de la base de données.");
         }
 
         try {
@@ -63,8 +64,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         return contrats;
@@ -79,7 +81,8 @@ public class ContratMySqlDAO extends DAO<Contrat> {
      *                                  de la fermeture des données.
      */
     @Override
-    public Contrat find(String name) throws SocieteDatabaseException {
+    public Contrat find(final String name)
+            throws SocieteDatabaseException {
         // Initialisation des variables.
         Contrat contrat = null;
         PreparedStatement stmt;
@@ -108,8 +111,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la lecture de la base de données.");
         }
 
         try {
@@ -118,8 +122,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         return contrat;
@@ -133,7 +138,8 @@ public class ContratMySqlDAO extends DAO<Contrat> {
      * @throws SocieteDatabaseException Exception lors de la lecture ou lors
      *                                  de la fermeture des données.
      */
-    public ArrayList<Contrat> findByIdClient(int idClient) throws SocieteDatabaseException {
+    public ArrayList<Contrat> findByIdClient(final int idClient)
+            throws SocieteDatabaseException {
         // Initialisation variables.
         ArrayList<Contrat> contrats = new ArrayList<>();
         PreparedStatement stmt;
@@ -158,8 +164,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la lecture de la base de données.");
         }
 
         try {
@@ -168,8 +175,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         return contrats;
@@ -184,7 +192,8 @@ public class ContratMySqlDAO extends DAO<Contrat> {
      *                                  de la fermeture des données.
      */
     @Override
-    public boolean delete(@NotNull Contrat obj) throws SocieteDatabaseException {
+    public boolean delete(final @NotNull Contrat obj)
+            throws SocieteDatabaseException {
         // Initialisation des variables.
         PreparedStatement stmt;
         int rowsAffected;
@@ -202,8 +211,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la lecture de la base de données.");
         }
 
         try {
@@ -212,8 +222,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         // Retourne l'indication si la requête a modifié une et une seule
@@ -228,52 +239,62 @@ public class ContratMySqlDAO extends DAO<Contrat> {
      * @param obj Le contrat à sauvegarder.
      * @return Indication si la sauvegarde s'est bien passé.
      * @throws SocieteDatabaseException Exception lors de la création, de la
-     *                                  modification ou de la fermeture des données.
+     *                                  modification ou de la fermeture
+     *                                  des données.
      */
     @Override
-    public boolean save(@NotNull Contrat obj) throws SocieteDatabaseException {
+    public boolean save(final @NotNull Contrat obj)
+            throws SocieteDatabaseException {
         // Initialisation des variables communes.
         Connection conn = null;
         try {
             conn = FrontController.datasource.getConnection();
         } catch (SQLException e) {
-            throw new SocieteDatabaseException("Erreur lors de l'ouverture de" +
-                    " la connexion", e);
+            throw new SocieteDatabaseException("Erreur lors de l'ouverture de"
+                    + " la connexion", e);
         }
         PreparedStatement stmt;
         String query;
         boolean ret = false;
+        final int fieldLibelle = 1;
+        final int fieldMontant = 2;
+        final int fieldIdClient = 3;
+        final int fieldIdentifiant = 4;
 
         try {
             conn.setAutoCommit(false);
 
             if (obj.getIdentifiant() > 0) {
                 // Initialisation variables UPDATE
-                query = "UPDATE `contrats` SET `libelleContrat` = ?, `montant` = ?,`idClient` = ? WHERE `idContrat`= ?";
+                query = "UPDATE `contrats` "
+                        + "SET `libelleContrat` = ?, `montant` = ?,`idClient`"
+                        + " = ? WHERE `idContrat`= ?";
 
                 // Préparation requête à exécuter.
                 stmt = conn.prepareStatement(query);
 
                 // Liaison des données de la société dans la requête.
-                stmt.setString(1, obj.getLibelle());
-                stmt.setDouble(2, obj.getMontant());
-                stmt.setInt(3, obj.getIdClient());
-                stmt.setInt(4, obj.getIdentifiant());
+                stmt.setString(fieldLibelle, obj.getLibelle());
+                stmt.setDouble(fieldMontant, obj.getMontant());
+                stmt.setInt(fieldIdClient, obj.getIdClient());
+                stmt.setInt(fieldIdentifiant, obj.getIdentifiant());
 
                 // Exécution de la requête.
                 ret = stmt.executeUpdate() == 1;
             } else {
                 // Initialisation variables CREATE
                 ResultSet rs;
-                query = "INSERT INTO `contrats`(`libelleContrat`, `montant`, `idClient`) VALUES (?, ?, ?)";
+                query = "INSERT INTO `contrats`(`libelleContrat`, `montant`, "
+                        + "`idClient`) VALUES (?, ?, ?)";
 
                 // Préparation requête à exécuter.
-                stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+                stmt = conn.prepareStatement(query,
+                        PreparedStatement.RETURN_GENERATED_KEYS);
 
                 // Liaison des données de la société dans la requête.
-                stmt.setString(1, obj.getLibelle());
-                stmt.setDouble(2, obj.getMontant());
-                stmt.setInt(3, obj.getIdClient());
+                stmt.setString(fieldLibelle, obj.getLibelle());
+                stmt.setDouble(fieldMontant, obj.getMontant());
+                stmt.setInt(fieldIdClient, obj.getIdClient());
 
                 // Exécution de la requête.
                 stmt.executeUpdate();
@@ -294,14 +315,16 @@ public class ContratMySqlDAO extends DAO<Contrat> {
             } catch (SQLException ex) {
                 // Exception attrapée, log de l'erreur et avertissement de
                 // l'utilisateur.
-                LogManager.logs.log(Level.SEVERE, e.getMessage());
-                throw new SocieteDatabaseException("Erreur lors de la sauvegarde.");
+                LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+                throw new SocieteDatabaseException("Erreur "
+                        + "lors de la sauvegarde.");
             }
 
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la sauvegarde.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la sauvegarde.");
         }
 
         try {
@@ -310,8 +333,9 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur "
+                    + "lors de la fermeture de l'accès aux données.");
         }
 
         // Retourne si la sauvegarde s'est bien passée ou non.
@@ -325,7 +349,8 @@ public class ContratMySqlDAO extends DAO<Contrat> {
      * @return Contrat Le Contrat récupéré.
      * @throws SocieteDatabaseException Exception lors de la récupération.
      */
-    private @NotNull Contrat parse(@NotNull ResultSet rs) throws SocieteDatabaseException {
+    private @NotNull Contrat parse(final @NotNull ResultSet rs)
+            throws SocieteDatabaseException {
         try {
             // Valorisation propriétés primitives et retourne le contrat
             // construit.
@@ -337,11 +362,11 @@ public class ContratMySqlDAO extends DAO<Contrat> {
                     .build();
         } catch (SocieteEntityException | SQLException e) {
             // Log exception.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
 
             // Lancement d'une exception lisible par l'utilisateur.
-            throw new SocieteDatabaseException("Erreur de la récupération du " +
-                    "Contrat depuis la base de données.", e);
+            throw new SocieteDatabaseException("Erreur de la récupération du "
+                    + "Contrat depuis la base de données.", e);
         }
     }
 }

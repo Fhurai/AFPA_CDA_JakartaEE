@@ -1,4 +1,4 @@
 /***
- * Package de gestion des logs
+ * Package de gestion des logs.
  */
-package logs;
+package fr.afpa.pompey.cda17.logs;

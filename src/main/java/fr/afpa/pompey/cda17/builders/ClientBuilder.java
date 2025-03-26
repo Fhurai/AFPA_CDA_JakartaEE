@@ -38,7 +38,8 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    public ClientBuilder dIdentifiant(int identifiant) throws SocieteEntityException {
+    public ClientBuilder dIdentifiant(final int identifiant)
+            throws SocieteEntityException {
         this.getEntity().setIdentifiant(identifiant);
         return this;
     }
@@ -50,18 +51,20 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    public ClientBuilder dIdentifiant(String identifiant) throws SocieteEntityException {
+    public ClientBuilder dIdentifiant(final String identifiant)
+            throws SocieteEntityException {
         return dIdentifiant(Integer.parseInt(identifiant));
     }
 
     /**
-     * Setter Raison Sociale
+     * Setter Raison Sociale.
      *
      * @param raisonSociale Nouvelle raison sociale.
      * @return This builder.
      * @throws SocieteEntityException Exception set by the raisonSociale setter.
      */
-    public ClientBuilder deRaisonSociale(String raisonSociale) throws SocieteEntityException {
+    public ClientBuilder deRaisonSociale(final String raisonSociale)
+            throws SocieteEntityException {
         this.getEntity().setRaisonSociale(raisonSociale);
         return this;
     }
@@ -73,7 +76,8 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the adresse setter.
      */
-    public ClientBuilder dAdresse(Adresse adresse) throws SocieteEntityException {
+    public ClientBuilder dAdresse(final Adresse adresse)
+            throws SocieteEntityException {
         this.getEntity().setAdresse(adresse);
         return this;
     }
@@ -89,9 +93,12 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by one of Adresse setter.
      */
-    public ClientBuilder avecAdresse(String identifiant, String numRue,
-                                     String nomRue,
-                                     String codePostal, String ville) throws SocieteEntityException {
+    public ClientBuilder avecAdresse(
+            final String identifiant,
+            final String numRue,
+            final String nomRue,
+            final String codePostal,
+            final String ville) throws SocieteEntityException {
         this.getEntity().setAdresse(AdresseBuilder.getNewAdresseBuilder()
                 .dIdentifiant(identifiant)
                 .deNumeroRue(numRue)
@@ -109,7 +116,8 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by telephone setter.
      */
-    public ClientBuilder deTelephone(String telephone) throws SocieteEntityException {
+    public ClientBuilder deTelephone(final String telephone)
+            throws SocieteEntityException {
         this.getEntity().setTelephone(telephone);
         return this;
     }
@@ -121,7 +129,8 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by mail setter.
      */
-    public ClientBuilder deMail(String mail) throws SocieteEntityException {
+    public ClientBuilder deMail(final String mail)
+            throws SocieteEntityException {
         this.getEntity().setMail(mail);
         return this;
     }
@@ -133,33 +142,34 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the commentaires setter.
      */
-    public ClientBuilder deCommentaires(String commentaires) throws SocieteEntityException {
+    public ClientBuilder deCommentaires(final String commentaires)
+            throws SocieteEntityException {
         this.getEntity().setCommentaires(commentaires);
         return this;
     }
 
     /**
-     * Setter Chiffres d'Affaires
+     * Setter Chiffres d'Affaires.
      *
      * @param chiffreAffaires Nouveau chiffre d'affaires.
      * @return This builder.
-     * @throws SocieteEntityException Exception set by the chiffreAffaires
-     *                                setter.
+     * @throws SocieteEntityException Exception set par le setter.
      */
-    public ClientBuilder deChiffreAffaires(long chiffreAffaires) throws SocieteEntityException {
+    public ClientBuilder deChiffreAffaires(final long chiffreAffaires)
+            throws SocieteEntityException {
         this.getEntity().setChiffreAffaires(chiffreAffaires);
         return this;
     }
 
     /**
-     * Setter Chiffres d'Affaires
+     * Setter Chiffres d'Affaires.
      *
      * @param chiffreAffaires Nouveau chiffre d'affaires.
      * @return This builder.
-     * @throws SocieteEntityException Exception set by the chiffreAffaires
-     *                                setter.
+     * @throws SocieteEntityException Exception set par le setter.
      */
-    public ClientBuilder deChiffreAffaires(String chiffreAffaires) throws SocieteEntityException {
+    public ClientBuilder deChiffreAffaires(final String chiffreAffaires)
+            throws SocieteEntityException {
         double ca = Double.parseDouble(chiffreAffaires);
         return this.deChiffreAffaires((long) ca);
     }
@@ -167,11 +177,12 @@ public class ClientBuilder extends SocieteBuilder<Client> {
     /**
      * Setter Nombre Employés.
      *
-     * @param nombreEmployes Nouveau nombre d'employés
+     * @param nombreEmployes Nouveau nombre d'employés.
      * @return This builder.
-     * @throws SocieteEntityException Exception set by the NbEmployes setter.
+     * @throws SocieteEntityException Exception set par le setter.
      */
-    public ClientBuilder deNombreEmployes(int nombreEmployes) throws SocieteEntityException {
+    public ClientBuilder deNombreEmployes(final int nombreEmployes)
+            throws SocieteEntityException {
         this.getEntity().setNbEmployes(nombreEmployes);
         return this;
     }
@@ -179,11 +190,12 @@ public class ClientBuilder extends SocieteBuilder<Client> {
     /**
      * Setter Nombre Employés.
      *
-     * @param nombreEmployes Nouveau nombre d'employés
+     * @param nombreEmployes Nouveau nombre d'employés.
      * @return This builder.
-     * @throws SocieteEntityException Exception set by the NbEmployes setter.
+     * @throws SocieteEntityException Exception set par le setter.
      */
-    public ClientBuilder deNombreEmployes(String nombreEmployes) throws SocieteEntityException {
+    public ClientBuilder deNombreEmployes(final String nombreEmployes)
+            throws SocieteEntityException {
         this.getEntity().setNbEmployes(Integer.parseInt(nombreEmployes));
         return this;
     }
@@ -194,7 +206,7 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @param contrats Nouvelle liste des contrats.
      * @return This builder.
      */
-    public ClientBuilder deContrats(ArrayList<Contrat> contrats) {
+    public ClientBuilder deContrats(final ArrayList<Contrat> contrats) {
         this.getEntity().setContrats(contrats);
         return this;
     }
@@ -205,7 +217,7 @@ public class ClientBuilder extends SocieteBuilder<Client> {
      * @param contrat Nouveau contrat à ajouter.
      * @return This builder.
      */
-    public ClientBuilder ajouterContrat(Contrat contrat) {
+    public ClientBuilder ajouterContrat(final Contrat contrat) {
         this.getEntity().getContrats().add(contrat);
         return this;
     }
@@ -213,7 +225,7 @@ public class ClientBuilder extends SocieteBuilder<Client> {
     /**
      * Getter Client construit.
      *
-     * @return Getter Client construit.
+     * @return Client construit.
      */
     public Client build() {
         return this.getEntity();

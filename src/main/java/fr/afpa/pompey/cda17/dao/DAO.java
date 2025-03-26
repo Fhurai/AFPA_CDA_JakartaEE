@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public abstract class DAO<T> {
 
     /**
-     * Constructeur
+     * Constructeur.
      */
     public DAO() {
     }
@@ -22,7 +22,7 @@ public abstract class DAO<T> {
      *
      * @return l'ensemble des objets de type T.
      */
-    abstract public ArrayList<T> findAll() throws SocieteDatabaseException;
+    public abstract ArrayList<T> findAll() throws SocieteDatabaseException;
 
     /**
      * Méthode pour rechercher un objet de type T.
@@ -32,17 +32,18 @@ public abstract class DAO<T> {
      * @throws SocieteDatabaseException Exception lors de la lecture ou lors
      *                                  de la fermeture des données.
      */
-    abstract public T find(String name) throws SocieteDatabaseException;
+    public abstract T find(String name) throws SocieteDatabaseException;
 
     /**
-     * Méthode pour supprimer un objet de type T
+     * Méthode pour supprimer un objet de type T.
      *
      * @param obj L'objet à supprimer.
      * @return Indication que l'objet a bien été supprimé.
      * @throws SocieteDatabaseException Exception lors de la lecture ou lors
      *                                  de la fermeture des données.
      */
-    abstract public boolean delete(@NotNull T obj) throws SocieteDatabaseException;
+    public abstract boolean delete(@NotNull T obj)
+            throws SocieteDatabaseException;
 
     /**
      * Méthode qui sauvegarde un objet, soit en le créant, soit en le modifiant.
@@ -50,7 +51,8 @@ public abstract class DAO<T> {
      * @param obj L'objet à sauvegarder.
      * @return Indication si la sauvegarde s'est bien passé.
      * @throws SocieteDatabaseException Exception lors de la création, de la
-     *                                  modification ou de la fermeture des données.
+     *                                  modification ou de la fermeture
+     *                                  des données.
      */
-    abstract public boolean save(T obj) throws SocieteDatabaseException;
+    public abstract boolean save(T obj) throws SocieteDatabaseException;
 }

@@ -32,7 +32,8 @@ public class ContratBuilder extends Builder<Contrat> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    public ContratBuilder dIdentifiant(int identifiant) throws SocieteEntityException {
+    public ContratBuilder dIdentifiant(final int identifiant)
+            throws SocieteEntityException {
         this.getEntity().setIdentifiant(identifiant);
         return this;
     }
@@ -44,63 +45,70 @@ public class ContratBuilder extends Builder<Contrat> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    public ContratBuilder dIdentifiant(@NotNull String identifiant) throws SocieteEntityException {
+    public ContratBuilder dIdentifiant(@NotNull final String identifiant)
+            throws SocieteEntityException {
         return this.dIdentifiant(Integer.parseInt(identifiant));
     }
 
     /**
-     * Setter libellé
+     * Setter libellé.
      *
      * @param libelle Nouveau libellé.
      * @return This builder.
      * @throws SocieteEntityException Exception set by the libelle setter.
      */
-    public ContratBuilder deLibelle(String libelle) throws SocieteEntityException {
+    public ContratBuilder deLibelle(final String libelle)
+            throws SocieteEntityException {
         this.getEntity().setLibelle(libelle);
         return this;
     }
 
     /**
-     * Setter Montant
+     * Setter Montant.
      *
      * @param montant Nouveau montant.
      * @return This builder.
      * @throws SocieteEntityException Exception set by the montant setter.
      */
-    public ContratBuilder deMontant(double montant) throws SocieteEntityException {
+    public ContratBuilder deMontant(final double montant)
+            throws SocieteEntityException {
         this.getEntity().setMontant(montant);
         return this;
     }
 
     /**
-     * Setter Montant
+     * Setter Montant.
      *
      * @param montant Nouveau montant.
      * @return This builder.
      * @throws SocieteEntityException Exception set by the montant setter.
      */
-    public ContratBuilder deMontant(String montant) throws SocieteEntityException {
+    public ContratBuilder deMontant(final String montant)
+            throws SocieteEntityException {
         return this.deMontant(Float.parseFloat(montant));
     }
 
     /**
-     * Setter id client
+     * Setter id client.
+     *
      * @param idClient Nouvel identifiant client.
      * @return This builder.
      * @throws SocieteEntityException Exception set by the idClient setter.
      */
-    public ContratBuilder dIdClient(int idClient) throws SocieteEntityException {
+    public ContratBuilder dIdClient(final int idClient)
+            throws SocieteEntityException {
         this.getEntity().setIdClient(idClient);
         return this;
     }
 
     /**
-     * Setter id client
+     * Setter id client.
      * @param idClient Nouvel identifiant client.
      * @return This builder.
      * @throws SocieteEntityException Exception set by the idClient setter.
      */
-    public ContratBuilder dIdClient(String idClient) throws SocieteEntityException {
+    public ContratBuilder dIdClient(final String idClient)
+            throws SocieteEntityException {
         return this.dIdClient(Integer.parseInt(idClient));
     }
 

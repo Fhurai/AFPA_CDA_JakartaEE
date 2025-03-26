@@ -26,7 +26,7 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @return new ProspectBuilder.
      */
     @Contract(" -> new")
-    public static @NotNull ProspectBuilder getNewProspectBuilder(){
+    public static @NotNull ProspectBuilder getNewProspectBuilder() {
         return new ProspectBuilder();
     }
 
@@ -37,7 +37,8 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    public ProspectBuilder dIdentifiant(int identifiant) throws SocieteEntityException {
+    public ProspectBuilder dIdentifiant(final int identifiant)
+            throws SocieteEntityException {
         this.getEntity().setIdentifiant(identifiant);
         return this;
     }
@@ -49,18 +50,20 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the identifiant setter.
      */
-    public ProspectBuilder dIdentifiant(String identifiant) throws SocieteEntityException {
+    public ProspectBuilder dIdentifiant(final String identifiant)
+            throws SocieteEntityException {
         return dIdentifiant(Integer.parseInt(identifiant));
     }
 
     /**
-     * Setter Raison Sociale
+     * Setter Raison Sociale.
      *
      * @param raisonSociale Nouvelle raison sociale.
      * @return This builder.
      * @throws SocieteEntityException Exception set by the raisonSociale setter.
      */
-    public ProspectBuilder deRaisonSociale(String raisonSociale) throws SocieteEntityException {
+    public ProspectBuilder deRaisonSociale(final String raisonSociale)
+            throws SocieteEntityException {
         this.getEntity().setRaisonSociale(raisonSociale);
         return this;
     }
@@ -72,7 +75,8 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by the adresse setter.
      */
-    public ProspectBuilder dAdresse(Adresse adresse) throws SocieteEntityException {
+    public ProspectBuilder dAdresse(final Adresse adresse)
+            throws SocieteEntityException {
         this.getEntity().setAdresse(adresse);
         return this;
     }
@@ -88,9 +92,12 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by one of Adresse setter.
      */
-    public ProspectBuilder avecAdresse(String identifiant, String numRue,
-                                     String nomRue,
-                                     String codePostal, String ville) throws SocieteEntityException {
+    public ProspectBuilder avecAdresse(final String identifiant,
+                                       final String numRue,
+                                       final String nomRue,
+                                       final String codePostal,
+                                       final String ville)
+            throws SocieteEntityException {
         this.getEntity().setAdresse(AdresseBuilder.getNewAdresseBuilder()
                 .dIdentifiant(identifiant)
                 .deNumeroRue(numRue)
@@ -108,7 +115,8 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by telephone setter.
      */
-    public ProspectBuilder deTelephone(String telephone) throws SocieteEntityException {
+    public ProspectBuilder deTelephone(final String telephone)
+            throws SocieteEntityException {
         this.getEntity().setTelephone(telephone);
         return this;
     }
@@ -120,7 +128,8 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @return This builder.
      * @throws SocieteEntityException Exception set by mail setter.
      */
-    public ProspectBuilder deMail(String mail) throws SocieteEntityException {
+    public ProspectBuilder deMail(final String mail)
+            throws SocieteEntityException {
         this.getEntity().setMail(mail);
         return this;
     }
@@ -131,7 +140,7 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @param commentaires Nouveaux commentaires.
      * @return This builder.
      */
-    public ProspectBuilder deCommentaires(String commentaires) {
+    public ProspectBuilder deCommentaires(final String commentaires) {
         this.getEntity().setCommentaires(commentaires);
         return this;
     }
@@ -142,7 +151,7 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @param date Nouvelle date.
      * @return This builder.
      */
-    public ProspectBuilder deDateProspection(LocalDate date) {
+    public ProspectBuilder deDateProspection(final LocalDate date) {
         this.getEntity().setDateProspection(date);
         return this;
     }
@@ -153,8 +162,9 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @param date Nouvelle date.
      * @return This builder.
      */
-    public ProspectBuilder deDateProspection(@NotNull Date date) {
-        this.getEntity().setDateProspection(LocalDate.ofInstant(date.toInstant(), ZoneId.systemDefault()));
+    public ProspectBuilder deDateProspection(@NotNull final Date date) {
+        this.getEntity().setDateProspection(LocalDate
+                .ofInstant(date.toInstant(), ZoneId.systemDefault()));
         return this;
     }
 
@@ -165,25 +175,27 @@ public class ProspectBuilder extends SocieteBuilder<Prospect> {
      * @param date Nouvelle date.
      * @return This builder.
      */
-    public ProspectBuilder deDateProspection(@NotNull String date) {
+    public ProspectBuilder deDateProspection(@NotNull final String date) {
         String[] dt;
         LocalDate ldt;
-        if(date.contains("-")) {
+        if (date.contains("-")) {
             dt = date.split("-");
-            ldt= LocalDate.parse(dt[2] + '/' + dt[1] + '/' + dt[0], Formatters.FORMAT_DDMMYYYY);
-        }else{
+            ldt = LocalDate.parse(dt[2] + '/' + dt[1] + '/' + dt[0],
+                    Formatters.FORMAT_DDMMYYYY);
+        } else {
             ldt = LocalDate.parse(date, Formatters.FORMAT_DDMMYYYY);
         }
         return this.deDateProspection(ldt);
     }
 
     /**
-     * Setter Prospect Interesse
+     * Setter Prospect Interesse.
      * @param interesse Nouvelle indication d'intéressement.
      * @return This builder.
      * @throws SocieteEntityException Exception set by prospectInteresse setter.
      */
-    public ProspectBuilder dInteresse(String interesse) throws SocieteEntityException {
+    public ProspectBuilder dInteresse(final String interesse)
+            throws SocieteEntityException {
         this.getEntity().setProspectInteresse(interesse);
         return this;
     }

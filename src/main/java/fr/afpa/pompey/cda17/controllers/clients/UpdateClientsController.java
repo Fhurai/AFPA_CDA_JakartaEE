@@ -27,12 +27,13 @@ public final class UpdateClientsController implements ICommand {
         String jsp = "clients/view.jsp";
         String urlSuite = Security.estConnecte(request, jsp);
 
-        if(jsp.equals(urlSuite)) {
+        if (jsp.equals(urlSuite)) {
             request.setAttribute("titlePage", "Mise à jour");
             request.setAttribute("titleGroup", "Clients");
 
             String clientId = request.getParameter("clientId");
-            Client client = new ClientMySqlDAO().findById(Integer.parseInt(clientId));
+            Client client = new ClientMySqlDAO()
+                                .findById(Integer.parseInt(clientId));
 
             if (request.getParameterMap().containsKey("raisonSociale")) {
                 Adresse adresse;
@@ -46,21 +47,28 @@ public final class UpdateClientsController implements ICommand {
                         .build();
 
                 // Set Client fields
-                client.setRaisonSociale(request.getParameter("raisonSociale"));
+                client.setRaisonSociale(request
+                                        .getParameter("raisonSociale"));
                 client.setTelephone(request.getParameter("telephone"));
                 client.setMail(request.getParameter("adresseMail"));
                 client.setCommentaires(request.getParameter("commentaires"));
                 client.setAdresse(adresse);
-                client.setChiffreAffaires(Long.parseLong(request.getParameter("chiffreAffaires")));
-                client.setNbEmployes(Integer.parseInt(request.getParameter("nbEmployes")));
+                client.setChiffreAffaires(
+                        Long.parseLong(
+                                request.getParameter("chiffreAffaires")));
+                client.setNbEmployes(
+                        Integer.parseInt(
+                                request.getParameter("nbEmployes")));
 
 
-                Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-                Set<ConstraintViolation<Client>> violations = validator.validate(client);
+                Validator validator = Validation.buildDefaultValidatorFactory()
+                        .getValidator();
+                Set<ConstraintViolation<Client>> violations =
+                        validator.validate(client);
 
-                if(!violations.isEmpty()){
+                if (!violations.isEmpty()) {
                     request.setAttribute("violations", violations);
-                }else{
+                } else {
                     (new ClientMySqlDAO()).save(client);
 
                     urlSuite = "redirect:?cmd=clients";

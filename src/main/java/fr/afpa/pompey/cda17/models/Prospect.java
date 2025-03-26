@@ -3,59 +3,102 @@ package fr.afpa.pompey.cda17.models;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-
 import java.time.LocalDate;
 
-public class Prospect extends Societe{
+/**
+ * Represents a potential customer extending Societe with prospection details.
+ */
+public class Prospect extends Societe {
 
+    /**
+     * Date of prospection (must be in the past).
+     */
     @NotNull
     @Past
     private LocalDate dateProspection;
 
+    /**
+     * Indicates the prospect's interest level (non-blank).
+     */
     @NotNull
     @NotBlank
     private String prospectInteresse;
 
-    public Prospect(int identifiant, String raisonSociale, Adresse adresse,
-                    String telephone, String mail, String commentaires, LocalDate dateProspection,
-                    String prospectInteresse) {
-        super(identifiant, raisonSociale, adresse, telephone, mail, commentaires);
-        this.dateProspection = dateProspection;
-        this.prospectInteresse = prospectInteresse;
+    /**
+     * Constructs a Prospect without identifier.
+     *
+     * @param raisonSoc    Company name
+     * @param adr          Address
+     * @param tel          Contact number
+     * @param email        Email address
+     * @param comment      Additional comments
+     * @param dateProsp    Prospection date (past)
+     * @param interet      Interest level
+     */
+    public Prospect(
+            final String raisonSoc,
+            final Adresse adr,
+            final String tel,
+            final String email,
+            final String comment,
+            final LocalDate dateProsp,
+            final String interet) {
+        super(raisonSoc, adr, tel, email, comment);
+        this.setDateProspection(dateProsp);
+        this.setProspectInteresse(interet);
     }
 
-    public Prospect(String raisonSociale, Adresse adresse, String telephone,
-                    String mail, String commentaires, LocalDate dateProspection,
-                    String prospectInteresse) {
-        super(raisonSociale, adresse, telephone, mail, commentaires);
-        setDateProspection(dateProspection);
-        setProspectInteresse(prospectInteresse);
-    }
-
+    /**
+     * Default constructor.
+     */
     public Prospect() {
         super();
     }
 
+    /**
+     * Returns the prospection date.
+     *
+     * @return LocalDate prospection date
+     */
     public LocalDate getDateProspection() {
         return dateProspection;
     }
 
-    public void setDateProspection(LocalDate dateProspection) {
-        this.dateProspection = dateProspection;
+    /**
+     * Sets the prospection date.
+     *
+     * @param dateProsp New date (must be in the past)
+     */
+    public void setDateProspection(final LocalDate dateProsp) {
+        this.dateProspection = dateProsp;
     }
 
+    /**
+     * Returns the interest level.
+     *
+     * @return String interest level
+     */
     public String getProspectInteresse() {
         return prospectInteresse;
     }
 
-    public void setProspectInteresse(String prospectInteresse) {
-        this.prospectInteresse = prospectInteresse;
+    /**
+     * Sets the interest level.
+     *
+     * @param interet New interest level (non-blank)
+     */
+    public void setProspectInteresse(final String interet) {
+        this.prospectInteresse = interet;
     }
 
+    /**
+     * {@inheritDoc}
+     * Provides extended string representation with prospection details.
+     */
     @Override
     public String toString() {
-        return super.toString() +
-                " dateProspection=" + getDateProspection() +
-                ", prospectInteresse='" + getProspectInteresse() + '\'';
+        return super.toString()
+                + " dateProspection=" + getDateProspection()
+                + ", prospectInteresse='" + getProspectInteresse() + '\'';
     }
 }

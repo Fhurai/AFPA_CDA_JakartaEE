@@ -20,11 +20,12 @@ public final class ViewClientsController implements ICommand {
         String jsp = "clients/view.jsp";
         String urlSuite = Security.estConnecte(request, jsp);
 
-        if(jsp.equals(urlSuite)) {
+        if (jsp.equals(urlSuite)) {
             request.setAttribute("titlePage", "Consultation");
             request.setAttribute("titleGroup", "Clients");
             String clientId = request.getParameter("clientId");
-            Client client = new ClientMySqlDAO().findById(Integer.parseInt(clientId));
+            Client client = new ClientMySqlDAO()
+                    .findById(Integer.parseInt(clientId));
 
             request.setAttribute("client", client);
         }

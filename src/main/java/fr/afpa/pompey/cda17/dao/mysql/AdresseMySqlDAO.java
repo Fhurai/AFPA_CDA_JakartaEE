@@ -22,7 +22,7 @@ import java.util.logging.Level;
 public class AdresseMySqlDAO extends DAO<Adresse> {
 
     /**
-     * Constructor
+     * Constructor.
      */
     public AdresseMySqlDAO() {
         super();
@@ -54,8 +54,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de " + "la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la lecture de "
+                    + "la base de données.");
         }
 
         try {
@@ -64,8 +65,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la " + "fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la "
+                    + "fermeture de l'accès aux données.");
         }
 
         return adresses;
@@ -80,14 +82,15 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
      *                                  de la fermeture des données.
      */
     @Override
-    public Adresse find(String name) throws SocieteDatabaseException {
+    public Adresse find(final String name) throws SocieteDatabaseException {
         // Initialisation des variables.
         Adresse adresse = null;
         PreparedStatement stmt;
 
         // Récupération de la requête de lecture à partir du tableau de
         // conditions de sélection.
-        String query = "SELECT * FROM adresses WHERE CONCAT(numRue, nomRue, codePostal, ville) LIKE ?";
+        String query = "SELECT * FROM adresses "
+                + "WHERE CONCAT(numRue, nomRue, codePostal, ville) LIKE ?";
 
         try {
             Connection con = FrontController.datasource.getConnection();
@@ -108,8 +111,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de " + "la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la lecture de "
+                    + "la base de données.");
         }
 
         try {
@@ -118,8 +122,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la " + "fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la "
+                    + "fermeture de l'accès aux données.");
         }
 
         return adresse;
@@ -133,7 +138,8 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
      * @throws SocieteDatabaseException Exception lors de la lecture ou lors
      *                                  de la fermeture des données.
      */
-    public Adresse findById(int identifiant) throws SocieteDatabaseException {
+    public Adresse findById(final int identifiant)
+            throws SocieteDatabaseException {
         Adresse adresse = null;
         PreparedStatement stmt;
 
@@ -160,8 +166,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de " + "la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la lecture de "
+                    + "la base de données.");
         }
 
         try {
@@ -170,15 +177,16 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la " + "fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la "
+                    + "fermeture de l'accès aux données.");
         }
 
         return adresse;
     }
 
     /**
-     * Méthode pour supprimer un objet de type T
+     * Méthode pour supprimer un objet de type T.
      *
      * @param obj L'objet à supprimer.
      * @return Indication que l'objet a bien été supprimé.
@@ -186,7 +194,8 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
      *                                  de la fermeture des données.
      */
     @Override
-    public boolean delete(@NotNull Adresse obj) throws SocieteDatabaseException {
+    public boolean delete(final @NotNull Adresse obj)
+            throws SocieteDatabaseException {
         // Initialisation des variables.
         PreparedStatement stmt;
         int rowsAffected;
@@ -204,8 +213,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la lecture de " + "la base de données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la lecture de "
+                    + "la base de données.");
         }
 
         try {
@@ -214,8 +224,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la " + "fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la "
+                    + "fermeture de l'accès aux données.");
         }
 
         // Retourne l'indication si la requête a modifié une et une seule
@@ -229,17 +240,24 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
      * @param obj L'objet à sauvegarder.
      * @return Indication si la sauvegarde s'est bien passé.
      * @throws SocieteDatabaseException Exception lors de la création, de la
-     *                                  modification ou de la fermeture des données.
+     *                                  modification ou de la fermeture
+     *                                  données.
      */
     @Override
-    public boolean save(@NotNull Adresse obj) throws SocieteDatabaseException {
+    public boolean save(final @NotNull Adresse obj)
+            throws SocieteDatabaseException {
         // Initialisation des variables communes.
         Connection conn = null;
+        final int fieldNumero = 1;
+        final int fieldNom = 2;
+        final int fieldCodePostal = 3;
+        final int fieldVille = 4;
+        final int fieldId = 5;
         try {
             conn = FrontController.datasource.getConnection();
         } catch (SQLException e) {
-            throw new SocieteDatabaseException("Erreur lors de l'ouverture de" +
-                    " la connexion", e);
+            throw new SocieteDatabaseException("Erreur lors de l'ouverture de"
+                    + " la connexion", e);
         }
         PreparedStatement stmt;
         String query;
@@ -248,34 +266,37 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         try {
             if (obj.getIdentifiant() > 0) {
                 // Initialisation variables UPDATE
-                query = "UPDATE adresses SET numRue = ?, nomRue = ?, " + "codePostal = ?, ville = ?" + " WHERE identifiant = ?";
+                query = "UPDATE adresses SET numRue = ?, nomRue = ?, "
+                        + "codePostal = ?, ville = ?"
+                        + " WHERE identifiant = ?";
 
                 // Préparation requête à exécuter.
                 stmt = conn.prepareStatement(query);
 
                 // Liaison des données de la société dans la requête.
-                stmt.setString(1, obj.getNumeroRue());
-                stmt.setString(2, obj.getNomRue());
-                stmt.setString(3, obj.getCodePostal());
-                stmt.setString(4, obj.getVille());
-                stmt.setInt(5, obj.getIdentifiant());
+                stmt.setString(fieldNumero, obj.getNumeroRue());
+                stmt.setString(fieldNom, obj.getNomRue());
+                stmt.setString(fieldCodePostal, obj.getCodePostal());
+                stmt.setString(fieldVille, obj.getVille());
+                stmt.setInt(fieldId, obj.getIdentifiant());
 
                 // Exécution de la requête.
                 ret = stmt.executeUpdate() == 1;
             } else {
                 // Initialisation variables CREATE
                 ResultSet rs;
-                query = "INSERT INTO adresses (`numRue`,`nomRue`," +
-                        "`codePostal`,`ville`) VALUES (?, ?, ?, ?)";
+                query = "INSERT INTO adresses (`numRue`,`nomRue`,"
+                        + "`codePostal`,`ville`) VALUES (?, ?, ?, ?)";
 
                 // Préparation requête à exécuter.
-                stmt = conn.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+                stmt = conn.prepareStatement(query,
+                        PreparedStatement.RETURN_GENERATED_KEYS);
 
                 // Liaison des données de la société dans la requête.
-                stmt.setString(1, obj.getNumeroRue());
-                stmt.setString(2, obj.getNomRue());
-                stmt.setString(3, obj.getCodePostal());
-                stmt.setString(4, obj.getVille());
+                stmt.setString(fieldNumero, obj.getNumeroRue());
+                stmt.setString(fieldNom, obj.getNomRue());
+                stmt.setString(fieldCodePostal, obj.getCodePostal());
+                stmt.setString(fieldVille, obj.getVille());
 
                 // Exécution de la requête.
                 stmt.executeUpdate();
@@ -290,8 +311,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la " + "sauvegarde.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la "
+                    + "sauvegarde.");
         }
 
         try {
@@ -300,8 +322,9 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         } catch (SQLException e) {
             // Exception attrapée, log de l'erreur et avertissement de
             // l'utilisateur.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
-            throw new SocieteDatabaseException("Erreur lors de la " + "fermeture de l'accès aux données.");
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
+            throw new SocieteDatabaseException("Erreur lors de la "
+                    + "fermeture de l'accès aux données.");
         }
 
         // Retourne si la sauvegarde s'est bien passée ou non.
@@ -315,7 +338,8 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
      * @return Adresse L'adresse récupérée.
      * @throws SocieteDatabaseException Exception lors de la récupération.
      */
-    private @NotNull Adresse parse(@NotNull ResultSet rs) throws SocieteDatabaseException {
+    private @NotNull Adresse parse(final @NotNull ResultSet rs)
+            throws SocieteDatabaseException {
         try {
             // Valorisation propriétés primitives et construction de l'objet
             // à retourner.
@@ -328,10 +352,11 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
                     .build();
         } catch (SocieteEntityException | SQLException e) {
             // Log exception.
-            LogManager.logs.log(Level.SEVERE, e.getMessage());
+            LogManager.LOGS.log(Level.SEVERE, e.getMessage());
 
             // Lancement d'une exception lisible par l'utilisateur.
-            throw new SocieteDatabaseException("Erreur de la récupération du " + "client depuis la base de données.", e);
+            throw new SocieteDatabaseException("Erreur de la récupération du "
+                    + "client depuis la base de données.", e);
         }
     }
 }

@@ -14,6 +14,13 @@ import java.util.ArrayList;
 
 public final class ConnexionController implements ICommand {
 
+    /**
+     *
+     * @param request La requete à répondre.
+     * @param response La réponse à la requête.
+     * @return
+     * @throws Exception
+     */
     @Contract(pure = true)
     @Override
     public @NotNull String execute(final HttpServletRequest request,
@@ -31,8 +38,12 @@ public final class ConnexionController implements ICommand {
 
         if (username != null && password != null) {
             // Validate required fields
-            if (username.isEmpty()) errors.add("Username est requis");
-            if (password.isEmpty()) errors.add("Password est requis");
+            if (username.isEmpty()) {
+                errors.add("Username est requis");
+            }
+            if (password.isEmpty()) {
+                errors.add("Password est requis");
+            }
 
             if (errors.isEmpty()) {
                 String appSecret = System.getenv("APP_SECRET");
@@ -45,8 +56,10 @@ public final class ConnexionController implements ICommand {
                             (appSecret + password).toCharArray();
 
                     try {
-                        if (argon2.verify(dbUser.getPassword(), passwordWithSecret)) {
-                            request.getSession().setAttribute("currentUser", dbUser);
+                        if (argon2.verify(dbUser.getPassword(),
+                                passwordWithSecret)) {
+                            request.getSession()
+                                    .setAttribute("currentUser", dbUser);
                             urlSuite = "redirect:?cmd=index";
                         } else {
                             errors.add("Username ou password incorrecte");
@@ -59,9 +72,10 @@ public final class ConnexionController implements ICommand {
                 }
             }
 
-            if(!errors.isEmpty()) {
+            if (!errors.isEmpty()) {
                 request.setAttribute("errors", errors);
-                LogManager.logs.warning("Erreur de connexion pour l'utilisateur: " + username);
+                LogManager.LOGS.warning("Erreur de connexion "
+                        + "pour l'utilisateur: " + username);
             }
         }
 

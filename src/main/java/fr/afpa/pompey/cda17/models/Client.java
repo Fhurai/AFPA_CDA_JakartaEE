@@ -8,61 +8,55 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 /**
- * Represents a client entity extending Societe with specific business attributes.
+ *
  */
 public class Client extends Societe {
+    /**
+     *
+     */
+    private static final long MIN_CHIFFRE_AFFAIRES = 250L;
 
-    @Min(250)
+    /**
+     *
+     */
+    @Min(MIN_CHIFFRE_AFFAIRES)
     private long chiffreAffaires;
 
+    /**
+     *
+     */
     @Min(1)
     private int nbEmployes;
 
+    /**
+     * List of associated contracts.
+     */
     @NotNull
     @Valid
     private List<Contrat> contrats;
 
     /**
-     * Constructs a Client with specified details.
+     * Constructs a Client without identifier.
      *
-     * @param identifiant     the unique identifier
-     * @param raisonSociale   the company name
-     * @param adresse         the address
-     * @param telephone       the contact number
-     * @param mail            the email address
-     * @param commentaires    additional comments
-     * @param chiffreAffaires the annual turnover (must be ≥250)
-     * @param nbEmployes      the employee count (must be ≥1)
+     * @param raisonSociale  company name
+     * @param adr            address
+     * @param tel            contact number
+     * @param email          email address
+     * @param comment        additional comments
+     * @param caValue        annual turnover (≥250)
+     * @param employesCount  employee count (≥1)
      */
-    public Client(int identifiant, String raisonSociale, Adresse adresse, String telephone,
-                  String mail, String commentaires, long chiffreAffaires, int nbEmployes) {
-        super(identifiant, raisonSociale, adresse, telephone, mail, commentaires);
-        setChiffreAffaires(chiffreAffaires);
-        setNbEmployes(nbEmployes);
+    public Client(final String raisonSociale, final Adresse adr,
+                  final String tel, final String email, final String comment,
+                  final long caValue, final int employesCount) {
+        super(raisonSociale, adr, tel, email, comment);
+        setChiffreAffaires(caValue);
+        setNbEmployes(employesCount);
         setContrats(new ArrayList<>());
     }
 
     /**
-     * Constructs a Client without an identifier.
-     *
-     * @param raisonSociale   the company name
-     * @param adresse         the address
-     * @param telephone       the contact number
-     * @param mail            the email address
-     * @param commentaires    additional comments
-     * @param chiffreAffaires the annual turnover (must be ≥250)
-     * @param nbEmployes      the employee count (must be ≥1)
-     */
-    public Client(String raisonSociale, Adresse adresse, String telephone, String mail,
-                  String commentaires, long chiffreAffaires, int nbEmployes) {
-        super(raisonSociale, adresse, telephone, mail, commentaires);
-        setChiffreAffaires(chiffreAffaires);
-        setNbEmployes(nbEmployes);
-        setContrats(new ArrayList<>());
-    }
-
-    /**
-     * Default constructor initializing contrats list.
+     * Default constructor initializing contracts list.
      */
     public Client() {
         super();
@@ -70,59 +64,60 @@ public class Client extends Societe {
     }
 
     /**
-     * Returns the annual turnover.
      *
-     * @return the chiffreAffaires
+     * @return Le chiffre d'affaires
      */
     public long getChiffreAffaires() {
         return chiffreAffaires;
     }
 
     /**
-     * Sets the annual turnover.
+     * Sets annual turnover.
      *
-     * @param chiffreAffaires the turnover to set (must be ≥250)
+     * @param caValue the turnover to set (must be ≥250)
      */
-    public void setChiffreAffaires(long chiffreAffaires) {
-        this.chiffreAffaires = chiffreAffaires;
+    public void setChiffreAffaires(final long caValue) {
+        this.chiffreAffaires = caValue;
     }
 
     /**
-     * Returns the employee count.
      *
-     * @return the nbEmployes
+     * @return Le nombre d'employés
      */
     public int getNbEmployes() {
         return nbEmployes;
     }
 
     /**
-     * Sets the employee count.
+     * Sets employee count.
      *
-     * @param nbEmployes the count to set (must be ≥1)
+     * @param employesCount the count to set (must be ≥1)
      */
-    public void setNbEmployes(int nbEmployes) {
-        this.nbEmployes = nbEmployes;
+    public void setNbEmployes(final int employesCount) {
+        this.nbEmployes = employesCount;
     }
 
     /**
-     * Returns the list of contracts.
      *
-     * @return the contrats list
+     * @return Les contrats du client.
      */
     public List<Contrat> getContrats() {
         return contrats;
     }
 
     /**
-     * Sets the list of contracts.
+     * Sets contracts list.
      *
-     * @param contrats the list to set
+     * @param contratsList the list to set
      */
-    public void setContrats(List<Contrat> contrats) {
-        this.contrats = contrats;
+    public void setContrats(final List<Contrat> contratsList) {
+        this.contrats = contratsList;
     }
 
+    /**
+     * {@inheritDoc}
+     * Provides string representation with business metrics.
+     */
     @Override
     public String toString() {
         return super.toString()
