@@ -52,6 +52,18 @@
                 </div>
                 <hr>
                 <div class="form-group col-md-12">
+                    <label for="rememberMe">Remember me</label>
+                    <div class="checkbox-custom">
+                        <input
+                                class="form-control"
+                                name="rememberMe"
+                                id="rememberMe"
+                                type="checkbox"
+                                />
+                        <label for="rememberMe"></label>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
                     <button class="btn btn-primary float-end">Envoyer</button>
                 </div>
             </fieldset>

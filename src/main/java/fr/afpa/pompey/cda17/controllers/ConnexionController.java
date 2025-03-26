@@ -5,12 +5,15 @@ import de.mkammerer.argon2.Argon2Factory;
 import fr.afpa.pompey.cda17.dao.mysql.UserMySqlDAO;
 import fr.afpa.pompey.cda17.logs.LogManager;
 import fr.afpa.pompey.cda17.models.User;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public final class ConnexionController implements ICommand {
 
@@ -58,8 +61,31 @@ public final class ConnexionController implements ICommand {
                     try {
                         if (argon2.verify(dbUser.getPassword(),
                                 passwordWithSecret)) {
+
+                            if (request.getParameterMap().get("rememberMe")
+                                    != null) {
+                                final int secToMinutes = 60;
+                                final int minToHours = 60;
+                                final int hoursToDays = 24;
+                                final int daysToWeek = 7;
+
+                                Cookie cookie = new Cookie("currentUser",
+                                        UUID.randomUUID().toString());
+                                cookie.setMaxAge(secToMinutes * minToHours
+                                        * hoursToDays * daysToWeek);
+                                response.addCookie(cookie);
+
+                                dbUser.setToken(cookie.getValue());
+                                dbUser.setExpire(LocalDate
+                                        .now()
+                                        .plusDays(daysToWeek));
+
+                                dao.save(dbUser);
+                            }
+
                             request.getSession()
-                                    .setAttribute("currentUser", dbUser);
+                                    .setAttribute("currentUser", dbUser
+                                    .getUsername());
                             urlSuite = "redirect:?cmd=index";
                         } else {
                             errors.add("Username ou password incorrecte");

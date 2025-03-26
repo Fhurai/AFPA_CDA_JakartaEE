@@ -250,6 +250,8 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
             stmt.setInt(1, obj.getIdentifiant());
             rowsAffected = stmt.executeUpdate();
 
+            (new AdresseMySqlDAO()).delete(obj.getAdresse());
+
             con.commit();
             con.setAutoCommit(true);
 

@@ -7,6 +7,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.time.LocalDate;
+
 /**
  * Represents a user entity in the system.
  */
@@ -39,28 +41,54 @@ public final class User {
     private String token;
 
     /**
+     * Expiration time.
+     */
+    private LocalDate expire;
+
+    /**
      * Constructs a User with specified details.
      *
      * @param idParam       Unique identifier
      * @param usernameParam Unique username
      * @param passwordParam User's password
      * @param tokenParam    Authentication token
+     * @param expireParam   Expiration timer
      */
     public User(
             final int idParam,
             final String usernameParam,
             final String passwordParam,
-            final String tokenParam) {
+            final String tokenParam,
+            final LocalDate expireParam) {
         this.id = idParam;
         this.username = usernameParam;
         this.password = passwordParam;
         this.token = tokenParam;
+        this.expire = expireParam;
     }
 
     /**
      * Default constructor for JPA.
      */
     public User() {
+    }
+
+    /**
+     * Returns the authentication timer.
+     *
+     * @return LocalDate authentication timer
+     */
+    public LocalDate getExpire() {
+        return expire;
+    }
+
+    /**
+     * Sets the authentication timer.
+     *
+     * @param expireParam New authentication timer
+     */
+    public void setExpire(final LocalDate expireParam) {
+        this.expire = expireParam;
     }
 
     /**

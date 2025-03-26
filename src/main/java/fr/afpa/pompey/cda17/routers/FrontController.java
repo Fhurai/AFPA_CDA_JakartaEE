@@ -15,10 +15,14 @@ import fr.afpa.pompey.cda17.controllers.prospects.DeleteProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.ListeProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.UpdateProspectsController;
 import fr.afpa.pompey.cda17.controllers.prospects.ViewProspectsController;
+import fr.afpa.pompey.cda17.dao.SocieteDatabaseException;
+import fr.afpa.pompey.cda17.dao.mysql.UserMySqlDAO;
 import fr.afpa.pompey.cda17.logs.LogManager;
+import fr.afpa.pompey.cda17.models.User;
 import jakarta.annotation.Resource;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,6 +31,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -88,6 +93,7 @@ public final class FrontController extends HttpServlet {
         } catch (SQLException e) {
             throw new ServletException(e);
         }
+
     }
 
     /**
@@ -100,6 +106,8 @@ public final class FrontController extends HttpServlet {
         String urlSuite = "";
 
         try {
+
+            loadCurrentUser(request);
 
             // cmd correspond au nom du paramètre passé avec l’url
             String cmd = request.getParameter("cmd");
@@ -168,5 +176,33 @@ public final class FrontController extends HttpServlet {
         connection = null;
 
         LogManager.stop();
+    }
+
+    /**
+     *
+     * @param request
+     * @throws SocieteDatabaseException
+     */
+    private void loadCurrentUser(final HttpServletRequest request)
+            throws SocieteDatabaseException {
+        Cookie[] cookies = request.getCookies();
+        if (request.getSession().getAttribute("currentUser") == null) {
+
+            for (Cookie cookie : cookies) {
+
+                if (cookie.getName().equals("currentUser")) {
+
+                    UserMySqlDAO dao = new UserMySqlDAO();
+
+                    User user = dao.findByToken(cookie.getValue());
+
+                    if (LocalDate.now().isBefore(user.getExpire())) {
+                        request.getSession()
+                                .setAttribute("currentUser", user
+                                        .getUsername());
+                    }
+                }
+            }
+        }
     }
 }

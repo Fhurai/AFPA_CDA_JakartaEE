@@ -234,7 +234,11 @@ public class ProspectMySqlDAO extends SocieteMySqlDAO<Prospect> {
             stmt = con.prepareStatement(query);
             stmt.setInt(1, obj.getIdentifiant());
             rowsAffected = stmt.executeUpdate();
+
+            (new AdresseMySqlDAO()).delete(obj.getAdresse());
+
             con.commit();
+            con.setAutoCommit(true);
 
         } catch (SQLException e) {
             try {
