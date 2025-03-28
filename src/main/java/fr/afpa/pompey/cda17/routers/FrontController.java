@@ -32,7 +32,6 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -111,10 +110,11 @@ public final class FrontController extends HttpServlet {
             loadCurrentUser(request);
 
             if (request.getParameterMap().containsKey("_csrf")) {
-                if(!request.getParameter("_csrf").equals(request.getSession()
-                        .getAttribute("_csrf").toString())){
-                    throw new IllegalAccessException("Les jetons csrf ne " +
-                            "correspondent pas!");
+                if (!request.getParameter("_csrf")
+                        .equals(request.getSession()
+                        .getAttribute("_csrf").toString())) {
+                    throw new IllegalAccessException("Les jetons csrf ne "
+                            + "correspondent pas!");
                 }
             }
 
@@ -136,9 +136,9 @@ public final class FrontController extends HttpServlet {
             try {
                 final String keyword = "redirect:";
 
-                String _csrf = UUID.randomUUID().toString();
-                request.getSession().setAttribute("_csrf", _csrf);
-                request.setAttribute("_csrf", _csrf);
+                String csrf = UUID.randomUUID().toString();
+                request.getSession().setAttribute("_csrf", csrf);
+                request.setAttribute("_csrf", csrf);
 
                 if (urlSuite != null && urlSuite.startsWith(keyword)) {
                     urlSuite = urlSuite.substring(keyword.length());
