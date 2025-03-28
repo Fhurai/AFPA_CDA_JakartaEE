@@ -43,7 +43,7 @@ public class ProspectMySqlDAO extends SocieteMySqlDAO<Prospect> {
         String query = "SELECT * FROM prospects";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Création de l'objet requête et exécution de celle-ci.
             stmt = con.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
@@ -94,7 +94,7 @@ public class ProspectMySqlDAO extends SocieteMySqlDAO<Prospect> {
         String query = "SELECT * FROM prospects WHERE `raisonSociale` LIKE ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
                     // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -167,7 +167,7 @@ public class ProspectMySqlDAO extends SocieteMySqlDAO<Prospect> {
         String query = "SELECT * FROM prospects WHERE `identifiant` = ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -218,7 +218,7 @@ public class ProspectMySqlDAO extends SocieteMySqlDAO<Prospect> {
         // Initialisation des variables.
         Connection con = null;
         try {
-            con = FrontController.datasource.getConnection();
+            con = FrontController.getDatasource().getConnection();
         } catch (SQLException e) {
             throw new SocieteDatabaseException("Erreur "
                     + "lors de l'ouverture de la connexion", e);
@@ -296,7 +296,7 @@ public class ProspectMySqlDAO extends SocieteMySqlDAO<Prospect> {
         // Initialisation des variables communes.
         Connection conn = null;
         try {
-            conn = FrontController.datasource.getConnection();
+            conn = FrontController.getDatasource().getConnection();
         } catch (SQLException e) {
             throw new SocieteDatabaseException("Erreur lors de l'ouverture de"
                     + " la connexion", e);

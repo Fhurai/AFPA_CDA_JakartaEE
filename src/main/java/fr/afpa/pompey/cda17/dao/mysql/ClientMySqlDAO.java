@@ -41,7 +41,7 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         ResultSet rs = null;
 
         try {
-            con = FrontController.datasource.getConnection();
+            con = FrontController.getDatasource().getConnection();
             stmt = con.prepareStatement("SELECT * FROM `clients` "
                     + "LEFT JOIN `adresses` "
                     + "ON `adresses`.`identifiant` = `clients`.`idAdresse`");
@@ -102,7 +102,7 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
                 + "WHERE `raisonSociale` LIKE ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -178,7 +178,7 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
                 + "WHERE `clients`.`identifiant` = ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -231,7 +231,7 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         // Initialisation des variables.
         Connection con = null;
         try {
-            con = FrontController.datasource.getConnection();
+            con = FrontController.getDatasource().getConnection();
         } catch (SQLException e) {
             throw new SocieteDatabaseException("Erreur lors de l'ouverture de"
                     + " la connexion", e);
@@ -312,7 +312,7 @@ public class ClientMySqlDAO extends SocieteMySqlDAO<Client> {
         // Initialisation des variables communes.
         Connection conn = null;
         try {
-            conn = FrontController.datasource.getConnection();
+            conn = FrontController.getDatasource().getConnection();
         } catch (SQLException e) {
             throw new SocieteDatabaseException("Erreur lors de l'ouverture "
                     + "de la connexion", e);

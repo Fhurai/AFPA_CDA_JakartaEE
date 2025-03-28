@@ -45,7 +45,7 @@ public class UserMySqlDAO extends DAO<User> {
         String query = "SELECT * FROM users WHERE `username` = ? ";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -103,7 +103,7 @@ public class UserMySqlDAO extends DAO<User> {
         String query = "SELECT * FROM users WHERE `token` = ? ";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -180,7 +180,7 @@ public class UserMySqlDAO extends DAO<User> {
         // Initialisation des variables communes.
         Connection conn = null;
         try {
-            conn = FrontController.datasource.getConnection();
+            conn = FrontController.getDatasource().getConnection();
         } catch (SQLException e) {
             throw new SocieteDatabaseException("Erreur "
                     + "lors de l'ouverture de la connexion", e);

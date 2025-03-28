@@ -40,7 +40,7 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         String query = "SELECT * FROM contrats";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Création de l'objet requête et exécution de celle-ci.
             stmt = con.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
@@ -92,7 +92,7 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         String query = "SELECT * FROM contrats WHERE `libelleContrat` LIKE ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -146,7 +146,7 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         String query = "SELECT * FROM contrats where `idClient` = ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Création de l'objet requête.
             stmt = con.prepareStatement(query);
 
@@ -202,7 +202,7 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         String query = "DELETE FROM contrats WHERE idContrat = ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Création de l'objet requête et exécution de celle-ci.
             stmt = con.prepareStatement(query);
             stmt.setInt(1, obj.getIdentifiant());
@@ -248,7 +248,7 @@ public class ContratMySqlDAO extends DAO<Contrat> {
         // Initialisation des variables communes.
         Connection conn = null;
         try {
-            conn = FrontController.datasource.getConnection();
+            conn = FrontController.getDatasource().getConnection();
         } catch (SQLException e) {
             throw new SocieteDatabaseException("Erreur lors de l'ouverture de"
                     + " la connexion", e);

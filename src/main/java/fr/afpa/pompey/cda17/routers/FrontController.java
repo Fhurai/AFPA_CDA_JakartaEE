@@ -54,7 +54,7 @@ public final class FrontController extends HttpServlet {
      *
      */
     @Resource(name = "jdbc/gestionClients")
-    public static DataSource datasource;
+    private static DataSource datasource;
 
     /**
      *
@@ -95,6 +95,14 @@ public final class FrontController extends HttpServlet {
             throw new ServletException(e);
         }
 
+    }
+
+    /**
+     *
+     * @return La datasource
+     */
+    public static DataSource getDatasource() {
+        return datasource;
     }
 
     /**

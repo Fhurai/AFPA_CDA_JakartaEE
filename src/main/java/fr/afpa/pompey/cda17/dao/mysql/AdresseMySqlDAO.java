@@ -41,7 +41,7 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         String query = "SELECT * FROM adresses";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Création de l'objet requête et exécution de celle-ci.
             stmt = con.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
@@ -93,7 +93,7 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
                 + "WHERE CONCAT(numRue, nomRue, codePostal, ville) LIKE ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -148,7 +148,7 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         String query = "SELECT * FROM adresses WHERE identifiant = ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Préparation de la requête.
             stmt = con.prepareStatement(query);
 
@@ -204,7 +204,7 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         String query = "DELETE FROM adresses WHERE identifiant = ?";
 
         try {
-            Connection con = FrontController.datasource.getConnection();
+            Connection con = FrontController.getDatasource().getConnection();
             // Création de l'objet requête et exécution de celle-ci.
             stmt = con.prepareStatement(query);
             stmt.setInt(1, obj.getIdentifiant());
@@ -254,7 +254,7 @@ public class AdresseMySqlDAO extends DAO<Adresse> {
         final int fieldVille = 4;
         final int fieldId = 5;
         try {
-            conn = FrontController.datasource.getConnection();
+            conn = FrontController.getDatasource().getConnection();
         } catch (SQLException e) {
             throw new SocieteDatabaseException("Erreur lors de l'ouverture de"
                     + " la connexion", e);
